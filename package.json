@@ -11,6 +11,7 @@
 	},
 	"license": "MIT",
 	"scripts": {
+		"s": "yarn start",
 		"start": "electron-forge start",
 		"package": "electron-forge package",
 		"make": "electron-forge make",
@@ -45,6 +46,7 @@
 		"globals": "^15.13.0",
 		"node-loader": "^2.0.0",
 		"prettier": "^3.4.2",
+		"prop-types": "^15.8.1",
 		"style-loader": "^3.0.0"
 	}
 }

@@ -1,0 +1,29 @@
+{
+  "invoice": "Rechnung",
+  "recipient": {
+    "salutation": "Anrede",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "street": "Straße",
+    "zipcode": "PLZ",
+    "city": "Ort"
+  },
+  "salutations": {
+    "dearMr": "Sehr geehrter Herr",
+    "dearMs": "Sehr geehrte Frau",
+    "dearSirOrMadam": "Sehr geehrter Damen und Herren"
+  },
+  "details": {
+    "customerNo": "Kundennummer",
+    "invoiceNo": "Rechnungsnummer",
+    "date": "Datum"
+  },
+  "lineItems": {
+    "itemNo": "Pos.",
+    "title": "Bezeichnung",
+    "quantity": "Menge",
+    "unitPrice": "Einzelpreis",
+    "total": "Betrag"
+  }
+}
+
