@@ -1,1 +1,28 @@
-{}
+{
+  "invoice": "Invoice",
+  "recipient": {
+    "salutation": "Salutation",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "street": "Street",
+    "zipcode": "Zipcode",
+    "city": "City"
+  },
+  "salutations": {
+    "dearMr": "Dear Mr.",
+    "dearMs": "Dear Ms.",
+    "dearSirOrMadam": "Dear Sir or Madam"
+  },
+  "details": {
+    "customerNo": "Customer No",
+    "invoiceNo": "Invoice No",
+    "date": "Date"
+  },
+  "lineItems": {
+    "itemNo": "Item No",
+    "title": "Title",
+    "quantity": "Quantity",
+    "unitPrice": "Unit Price",
+    "total": "Total"
+  }
+}

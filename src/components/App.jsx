@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import i18n from '../locales/de.json'
+import i18n from '../locales/index.js'
 import DetailsForm from './DetailsForm.jsx'
 import LineItemsForm from './LineItemsForm.jsx'
 import RecipientForm from './RecipientForm.jsx'

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import * as React from 'react'
 
-import i18n from '../locales/de.json'
+import i18n from '../locales/index.js'
 
 const DetailsForm = function ({ details, setDetails }) {
 	const updateCustomerNo = e => setDetails(existing => ({ ...existing, customerNo: e.target.value }))
