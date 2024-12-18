@@ -6,6 +6,7 @@ import LineItemsForm from './LineItemsForm.jsx'
 import RecipientForm from './RecipientForm.jsx'
 
 const App = () => {
+	const devMode = false
 	const [tab, setTab] = React.useState('recipient')
 	const [recipient, setRecipient] = React.useState({
 		firstName: '',
@@ -23,6 +24,45 @@ const App = () => {
 
 	return (
 		<>
+			{devMode && (
+				<button
+					style={{ position: 'fixed', top: '10px', right: '10px' }}
+					onClick={() => {
+						setRecipient({
+							salutation: 'dearMr',
+							firstName: 'John',
+							lastName: 'Doe',
+							street: 'Fakestreet 123',
+							zipcode: '12345',
+							city: 'Faketown',
+						})
+						setDetails({
+							customerNo: '12345',
+							invoiceNo: '12345-67890',
+							date: '01.01.2025',
+						})
+						setLineItems([
+							{
+								title: 'Item 1',
+								quantity: 3,
+								unitPrice: 49.99,
+							},
+							{
+								title: 'Item 3',
+								quantity: 7,
+								unitPrice: 129.9,
+							},
+							{
+								title: 'Item 3',
+								quantity: 2,
+								unitPrice: 27.63,
+							},
+						])
+					}}
+				>
+					fill
+				</button>
+			)}
 			<h2>{i18n.invoice}</h2>
 			<nav>
 				<div className={tab === 'recipient' ? 'active' : ''} onClick={() => setTab('recipient')}>
