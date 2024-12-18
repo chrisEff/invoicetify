@@ -1,5 +1,6 @@
 {
   "invoice": "Invoice",
+  "kindRegards": "Kind regards",
   "recipient": {
     "salutation": "Salutation",
     "firstName": "First Name",
@@ -16,13 +17,15 @@
   "details": {
     "customerNo": "Customer No",
     "invoiceNo": "Invoice No",
-    "date": "Date"
+    "date": "Date",
+    "servicePeriod": "Service Period"
   },
   "lineItems": {
     "itemNo": "Item No",
     "title": "Title",
     "quantity": "Quantity",
     "unitPrice": "Unit Price",
+    "amount": "Amount",
     "total": "Total"
   }
 }

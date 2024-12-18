@@ -1,8 +1,10 @@
+import { PDFDownloadLink } from '@react-pdf/renderer'
 import * as React from 'react'
 
 import i18n from '../locales/index.js'
 import DetailsForm from './DetailsForm.jsx'
 import LineItemsForm from './LineItemsForm.jsx'
+import Pdf from './Pdf.jsx'
 import RecipientForm from './RecipientForm.jsx'
 
 const App = () => {
@@ -87,6 +89,9 @@ const App = () => {
 							return <RecipientForm {...{ recipient, setRecipient }} />
 					}
 				})()}
+				<PDFDownloadLink document={<Pdf {...{ recipient, details, lineItems }} />} fileName={i18n.invoice + '.pdf'}>
+					{({ loading }) => (loading ? 'Loading document...' : 'Download now!')}
+				</PDFDownloadLink>
 			</main>
 		</>
 	)

@@ -48,7 +48,7 @@ const LineItemsForm = function ({ lineItems, setLineItems }) {
 								<th>{i18n.lineItems.title}</th>
 								<th style={{ width: '10em' }}>{i18n.lineItems.quantity}</th>
 								<th style={{ width: '10em' }}>{i18n.lineItems.unitPrice}</th>
-								<th style={{ width: '10em' }}>{i18n.lineItems.total}</th>
+								<th style={{ width: '10em' }}>{i18n.lineItems.amount}</th>
 								<th></th>
 							</tr>
 						</thead>

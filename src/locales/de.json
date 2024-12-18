@@ -1,5 +1,6 @@
 {
   "invoice": "Rechnung",
+  "kindRegards": "Mit freundlichen Grüßen",
   "recipient": {
     "salutation": "Anrede",
     "firstName": "Vorname",
@@ -11,19 +12,21 @@
   "salutations": {
     "dearMr": "Sehr geehrter Herr",
     "dearMs": "Sehr geehrte Frau",
-    "dearSirOrMadam": "Sehr geehrter Damen und Herren"
+    "dearSirOrMadam": "Sehr geehrte Damen und Herren"
   },
   "details": {
     "customerNo": "Kundennummer",
     "invoiceNo": "Rechnungsnummer",
-    "date": "Datum"
+    "date": "Datum",
+    "servicePeriod": "Leistungszeitraum"
   },
   "lineItems": {
     "itemNo": "Pos.",
     "title": "Bezeichnung",
     "quantity": "Menge",
     "unitPrice": "Einzelpreis",
-    "total": "Betrag"
+    "amount": "Betrag",
+    "total": "Gesamtbetrag"
   }
 }
 
