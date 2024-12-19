@@ -2,7 +2,7 @@ import { Document, Page, Text, View } from '@react-pdf/renderer'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import i18n from '../locales/index.js'
+import i18n from '../locales'
 
 const styles = {
 	Page: {

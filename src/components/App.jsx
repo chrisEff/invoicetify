@@ -1,11 +1,11 @@
 import { PDFDownloadLink } from '@react-pdf/renderer'
 import * as React from 'react'
 
-import i18n from '../locales/index.js'
-import DetailsForm from './DetailsForm.jsx'
-import LineItemsForm from './LineItemsForm.jsx'
-import Pdf from './Pdf.jsx'
-import RecipientForm from './RecipientForm.jsx'
+import i18n from '../locales/index'
+import DetailsForm from './DetailsForm'
+import LineItemsForm from './LineItemsForm'
+import Pdf from './Pdf'
+import RecipientForm from './RecipientForm'
 
 const App = () => {
 	const devMode = false

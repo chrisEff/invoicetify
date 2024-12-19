@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import * as React from 'react'
 import { useRef } from 'react'
 
-import i18n from '../locales/index.js'
+import i18n from '../locales'
 
 const LineItemsForm = function ({ lineItems, setLineItems }) {
 	const [dataComplete, setDataComplete] = React.useState(false)
