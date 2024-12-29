@@ -3,18 +3,24 @@ import path from 'node:path'
 import { app, BrowserWindow } from 'electron'
 import started from 'electron-squirrel-startup'
 
+import store from './store'
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
 	app.quit()
 }
 
+let windowSettings = store.get('window')
+
 const createWindow = () => {
 	// Create the browser window.
 	const mainWindow = new BrowserWindow({
-		width: 960,
-		height: 600,
+		width: windowSettings.width,
+		height: windowSettings.height,
 		minWidth: 800,
 		minHeight: 600,
+		x: windowSettings.x,
+		y: windowSettings.y,
 		webPreferences: {
 			preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
 		},
@@ -22,6 +28,23 @@ const createWindow = () => {
 
 	// and load the index.html of the app.
 	mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
+
+	mainWindow.on('resized', () => {
+		const size = mainWindow.getSize()
+		const pos = mainWindow.getPosition()
+		store.set('window', {
+			width: size[0],
+			height: size[1],
+			x: pos[0],
+			y: pos[1],
+		})
+	})
+
+	mainWindow.on('moved', () => {
+		const pos = mainWindow.getPosition()
+		store.set('window.x', pos[0])
+		store.set('window.y', pos[1])
+	})
 
 	// Open the DevTools.
 	// mainWindow.webContents.openDevTools();
