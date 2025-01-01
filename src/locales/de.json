@@ -1,6 +1,11 @@
 {
   "invoice": "Rechnung",
   "kindRegards": "Mit freundlichen Grüßen",
+  "tabs": {
+    "recipient": "Empfänger",
+    "details": "Details",
+    "lineItems": "Positionen"
+  },
   "recipient": {
     "salutation": "Anrede",
     "firstName": "Vorname",
@@ -27,6 +32,11 @@
     "unitPrice": "Einzelpreis",
     "amount": "Betrag",
     "total": "Gesamtbetrag"
+  },
+  "settings": {
+    "header": "Einstellungen",
+    "language": "Sprache",
+    "fontSize": "Schriftgröße"
   }
 }
 

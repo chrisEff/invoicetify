@@ -20,6 +20,7 @@
 	},
 	"dependencies": {
 		"@react-pdf/renderer": "^4.1.6",
+		"dot-object": "^2.1.5",
 		"electron-squirrel-startup": "^1.0.1",
 		"electron-store": "^10.0.0",
 		"react": "^19.0.0",
@@ -38,6 +39,7 @@
 		"@electron-forge/plugin-webpack": "^7.6.0",
 		"@electron/fuses": "^1.8.0",
 		"@eslint/js": "^9.17.0",
+		"@types/dot-object": "^2.1.6",
 		"@vercel/webpack-asset-relocator-loader": "1.7.3",
 		"babel-loader": "^9.2.1",
 		"css-loader": "^7.1.2",

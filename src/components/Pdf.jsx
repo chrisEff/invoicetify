@@ -7,7 +7,6 @@ import i18n from '../locales'
 const styles = {
 	Page: {
 		fontFamily: 'Helvetica',
-		fontSize: '11pt',
 		padding: '2cm',
 	},
 	table: {
@@ -35,12 +34,12 @@ const styles = {
 	},
 }
 
-const Pdf = ({ recipient, details, lineItems }) => {
+const Pdf = ({ recipient, details, lineItems, settings }) => {
 	const total = lineItems.reduce((total, item) => total + item.quantity * item.unitPrice, 0)
 
 	return (
 		<Document>
-			<Page size="A4" style={styles.Page}>
+			<Page size="A4" style={{ ...styles.Page, fontSize: settings.fontSize }}>
 				<View style={{ marginTop: '3.5cm', minHeight: '3cm' }}>
 					<Text style={{ fontSize: '6pt', marginBottom: '0.5cm', textDecoration: 'underline' }}>
 						{/* TODO implement sender address */}
@@ -192,6 +191,9 @@ Pdf.propTypes = {
 	}).isRequired,
 	lineItems: PropTypes.array.isRequired,
 	setDetails: PropTypes.func.isRequired,
+	settings: PropTypes.shape({
+		fontSize: PropTypes.string.isRequired,
+	}),
 }
 
 export default Pdf

@@ -1,6 +1,4 @@
-import path from 'node:path'
-
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 import started from 'electron-squirrel-startup'
 
 import store from './store'
@@ -10,7 +8,7 @@ if (started) {
 	app.quit()
 }
 
-let windowSettings = store.get('window')
+let windowSettings = store.get('main.window')
 
 const createWindow = () => {
 	// Create the browser window.
@@ -32,7 +30,7 @@ const createWindow = () => {
 	mainWindow.on('resized', () => {
 		const size = mainWindow.getSize()
 		const pos = mainWindow.getPosition()
-		store.set('window', {
+		store.set('main.window', {
 			width: size[0],
 			height: size[1],
 			x: pos[0],
@@ -42,18 +40,28 @@ const createWindow = () => {
 
 	mainWindow.on('moved', () => {
 		const pos = mainWindow.getPosition()
-		store.set('window.x', pos[0])
-		store.set('window.y', pos[1])
+		store.set('main.window.x', pos[0])
+		store.set('main.window.y', pos[1])
 	})
 
 	// Open the DevTools.
 	// mainWindow.webContents.openDevTools();
 }
 
+const handleStoreGet = (event, key) => {
+	return store.get('renderer.' + key)
+}
+
+const handleStoreSet = (event, key, value) => {
+	store.set('renderer.' + key, value)
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+	ipcMain.handle('store:get', handleStoreGet)
+	ipcMain.handle('store:set', handleStoreSet)
 	createWindow()
 
 	// On OS X it's common to re-create a window in the app when the

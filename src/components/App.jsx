@@ -1,15 +1,22 @@
 import { PDFDownloadLink } from '@react-pdf/renderer'
 import * as React from 'react'
+import { useEffect, useState } from 'react'
 
 import i18n from '../locales/index'
 import DetailsForm from './DetailsForm'
 import LineItemsForm from './LineItemsForm'
 import Pdf from './Pdf'
 import RecipientForm from './RecipientForm'
+import Settings from './Settings'
 
 const App = () => {
 	const devMode = false
 	const [tab, setTab] = React.useState('recipient')
+	const [showSettings, setShowSettings] = useState(false)
+	const [settings, setSettings] = useState({
+		language: null,
+		fontSize: null,
+	})
 	const [recipient, setRecipient] = React.useState({
 		firstName: '',
 		lastName: '',
@@ -24,57 +31,72 @@ const App = () => {
 	})
 	const [lineItems, setLineItems] = React.useState([])
 
+	useEffect(() => {
+		async function fetchSettings() {
+			const language = await window.electronAPI.storeGet('language')
+			const fontSize = await window.electronAPI.storeGet('fontSize')
+			setSettings(existing => ({ ...existing, language, fontSize }))
+		}
+		if (settings.language === null) {
+			fetchSettings()
+		}
+	})
+
+	useEffect(() => {
+		settings.language !== null && window.electronAPI.storeSet('language', settings.language)
+		settings.fontSize !== null && window.electronAPI.storeSet('fontSize', settings.fontSize)
+	}, [settings])
+
+	const fillDummyData = () => {
+		setRecipient({
+			salutation: 'dearMr',
+			firstName: 'John',
+			lastName: 'Doe',
+			street: 'Fakestreet 123',
+			zipcode: '12345',
+			city: 'Faketown',
+		})
+		setDetails({
+			customerNo: '12345',
+			invoiceNo: '12345-67890',
+			date: '01.01.2025',
+		})
+		setLineItems([
+			{
+				title: 'Item 1',
+				quantity: 3,
+				unitPrice: 49.99,
+			},
+			{
+				title: 'Item 3',
+				quantity: 7,
+				unitPrice: 129.9,
+			},
+			{
+				title: 'Item 3',
+				quantity: 2,
+				unitPrice: 27.63,
+			},
+		])
+	}
+
 	return (
 		<>
-			{devMode && (
-				<button
-					style={{ position: 'fixed', top: '10px', right: '10px' }}
-					onClick={() => {
-						setRecipient({
-							salutation: 'dearMr',
-							firstName: 'John',
-							lastName: 'Doe',
-							street: 'Fakestreet 123',
-							zipcode: '12345',
-							city: 'Faketown',
-						})
-						setDetails({
-							customerNo: '12345',
-							invoiceNo: '12345-67890',
-							date: '01.01.2025',
-						})
-						setLineItems([
-							{
-								title: 'Item 1',
-								quantity: 3,
-								unitPrice: 49.99,
-							},
-							{
-								title: 'Item 3',
-								quantity: 7,
-								unitPrice: 129.9,
-							},
-							{
-								title: 'Item 3',
-								quantity: 2,
-								unitPrice: 27.63,
-							},
-						])
-					}}
-				>
-					fill
-				</button>
-			)}
+			{showSettings && <Settings {...{ settings, setSettings, setShowSettings }} />}
+			<div style={{ position: 'fixed', top: '10px', right: '10px' }}>
+				{devMode && <button onClick={fillDummyData}>fill</button>}{' '}
+				<button onClick={() => setShowSettings(true)}>settings</button>
+			</div>
 			<h2>{i18n.invoice}</h2>
 			<nav>
 				<div className={tab === 'recipient' ? 'active' : ''} onClick={() => setTab('recipient')}>
-					Empfänger
+					{i18n.tabs.recipient}
 				</div>
 				<div className={tab === 'details' ? 'active' : ''} onClick={() => setTab('details')}>
-					Details
+					{i18n.tabs.details}
 				</div>
 				<div className={tab === 'lineItems' ? 'active' : ''} onClick={() => setTab('lineItems')}>
-					Positionen
+					{i18n.tabs.lineItems}
 				</div>
 			</nav>
 			<main>
@@ -89,7 +111,10 @@ const App = () => {
 							return <RecipientForm {...{ recipient, setRecipient }} />
 					}
 				})()}
-				<PDFDownloadLink document={<Pdf {...{ recipient, details, lineItems }} />} fileName={i18n.invoice + '.pdf'}>
+				<PDFDownloadLink
+					document={<Pdf {...{ recipient, details, lineItems, settings }} />}
+					fileName={i18n.invoice + '.pdf'}
+				>
 					{({ loading }) => (loading ? 'Loading document...' : 'Download now!')}
 				</PDFDownloadLink>
 			</main>

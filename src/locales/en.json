@@ -1,6 +1,11 @@
 {
   "invoice": "Invoice",
   "kindRegards": "Kind regards",
+  "tabs": {
+    "recipient": "Recipient",
+    "details": "Details",
+    "lineItems": "Line Items"
+  },
   "recipient": {
     "salutation": "Salutation",
     "firstName": "First Name",
@@ -27,5 +32,10 @@
     "unitPrice": "Unit Price",
     "amount": "Amount",
     "total": "Total"
+  },
+  "settings": {
+    "header": "Settings",
+    "language": "Language",
+    "fontSize": "Font Size"
   }
 }

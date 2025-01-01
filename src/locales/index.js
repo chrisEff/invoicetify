@@ -1,3 +1,6 @@
-import i18n from '../locales/en.json'
+import de from '../locales/de.json'
+import en from '../locales/en.json'
 
-export default i18n
+const lang = await window.electronAPI.storeGet('language')
+
+export default lang === 'de' ? de : en
