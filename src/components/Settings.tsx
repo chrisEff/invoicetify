@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types'
 import React from 'react'
 
 import i18n from '../locales'
+import type { Settings } from '../types'
 
-const styles = {
+const styles: { [key: string]: React.CSSProperties } = {
 	dialog: {
 		height: 'calc(100% - 80px)',
 		width: 'calc(100% - 80px)',
@@ -17,9 +17,17 @@ const styles = {
 	},
 }
 
-const Settings = ({ settings, setSettings, setShowSettings }) => {
-	const updateLanguage = e => setSettings(existing => ({ ...existing, language: e.target.value }))
-	const updateFontSize = e => setSettings(existing => ({ ...existing, fontSize: e.target.value }))
+interface SettingsProps {
+	settings: Settings
+	setSettings: (callback: (settings: Settings) => Settings) => void
+	setShowSettings: (showSettings: boolean) => void
+}
+
+const Settings = ({ settings, setSettings, setShowSettings }: SettingsProps) => {
+	const updateLanguage = (e: React.ChangeEvent<HTMLInputElement>) =>
+		setSettings(existing => ({ ...existing, language: e.target.value }))
+	const updateFontSize = (e: React.ChangeEvent<HTMLInputElement>) =>
+		setSettings(existing => ({ ...existing, fontSize: parseInt(e.target.value) }))
 
 	return (
 		<dialog open style={styles.dialog}>
@@ -37,12 +45,6 @@ const Settings = ({ settings, setSettings, setShowSettings }) => {
 			<input type="number" id="fontSize" defaultValue={settings.fontSize} onChange={updateFontSize} />
 		</dialog>
 	)
-}
-
-Settings.propTypes = {
-	settings: PropTypes.object.isRequired,
-	setSettings: PropTypes.func.isRequired,
-	setShowSettings: PropTypes.func.isRequired,
 }
 
 export default Settings

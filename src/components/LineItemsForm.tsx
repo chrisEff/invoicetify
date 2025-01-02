@@ -1,14 +1,19 @@
-import PropTypes from 'prop-types'
 import * as React from 'react'
 import { useRef } from 'react'
 
 import i18n from '../locales'
+import type { LineItem } from '../types'
 
-const LineItemsForm = function ({ lineItems, setLineItems }) {
+interface LineItemsFormProps {
+	lineItems: Array<LineItem>
+	setLineItems: Function
+}
+
+const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFormProps) {
 	const [dataComplete, setDataComplete] = React.useState(false)
-	const titleRef = useRef()
-	const quantityRef = useRef()
-	const unitPriceRef = useRef()
+	const titleRef = useRef<HTMLInputElement>(null)
+	const quantityRef = useRef<HTMLInputElement>(null)
+	const unitPriceRef = useRef<HTMLInputElement>(null)
 
 	const addLineItem = () => {
 		const newItem = {
@@ -17,7 +22,7 @@ const LineItemsForm = function ({ lineItems, setLineItems }) {
 			unitPrice: parseFloat(unitPriceRef.current.value),
 		}
 
-		setLineItems(existing => [...existing, newItem])
+		setLineItems((existing: Array<LineItem>) => [...existing, newItem])
 
 		titleRef.current.value = ''
 		quantityRef.current.value = ''
@@ -25,8 +30,8 @@ const LineItemsForm = function ({ lineItems, setLineItems }) {
 		onInputChange()
 	}
 
-	const removeLineItem = index => {
-		setLineItems(existing => existing.filter((item, i) => i !== index))
+	const removeLineItem = (index: number) => {
+		setLineItems((existing: Array<LineItem>) => existing.filter((item, i) => i !== index))
 	}
 
 	const onInputChange = () => {
@@ -40,7 +45,12 @@ const LineItemsForm = function ({ lineItems, setLineItems }) {
 	return (
 		<>
 			<div style={{ display: 'flex', flexDirection: 'column' }}>
-				<form onSubmit={e => e.preventDefault() && dataComplete && addLineItem()}>
+				<form
+					onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+						e.preventDefault()
+						dataComplete && addLineItem()
+					}}
+				>
 					<table>
 						<thead>
 							<tr>
@@ -107,11 +117,6 @@ const LineItemsForm = function ({ lineItems, setLineItems }) {
 			</div>
 		</>
 	)
-}
-
-LineItemsForm.propTypes = {
-	lineItems: PropTypes.array.isRequired,
-	setLineItems: PropTypes.func.isRequired,
 }
 
 export default LineItemsForm

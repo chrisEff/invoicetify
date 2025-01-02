@@ -1,12 +1,20 @@
-import PropTypes from 'prop-types'
 import * as React from 'react'
 
 import i18n from '../locales'
+import type { Details } from '../types'
 
-const DetailsForm = function ({ details, setDetails }) {
-	const updateCustomerNo = e => setDetails(existing => ({ ...existing, customerNo: e.target.value }))
-	const updateInvoiceNo = e => setDetails(existing => ({ ...existing, invoiceNo: e.target.value }))
-	const updateDate = e => setDetails(existing => ({ ...existing, date: e.target.value }))
+interface DetailsFormProps {
+	details: Details
+	setDetails: Function
+}
+
+const DetailsForm = function ({ details, setDetails }: DetailsFormProps) {
+	const updateCustomerNo = (e: React.ChangeEvent<HTMLInputElement>) =>
+		setDetails((existing: Details) => ({ ...existing, customerNo: e.target.value }))
+	const updateInvoiceNo = (e: React.ChangeEvent<HTMLInputElement>) =>
+		setDetails((existing: Details) => ({ ...existing, invoiceNo: e.target.value }))
+	const updateDate = (e: React.ChangeEvent<HTMLInputElement>) =>
+		setDetails((existing: Details) => ({ ...existing, date: e.target.value }))
 
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column', width: '500px', maxWidth: '50%' }}>
@@ -21,15 +29,6 @@ const DetailsForm = function ({ details, setDetails }) {
 			<br />
 		</div>
 	)
-}
-
-DetailsForm.propTypes = {
-	details: PropTypes.shape({
-		customerNo: PropTypes.string.isRequired,
-		invoiceNo: PropTypes.string.isRequired,
-		date: PropTypes.string.isRequired,
-	}).isRequired,
-	setDetails: PropTypes.func.isRequired,
 }
 
 export default DetailsForm

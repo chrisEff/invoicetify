@@ -3,33 +3,35 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 
 import i18n from '../locales/index'
+import type { Recipient, Details, LineItem, Settings } from '../types'
 import DetailsForm from './DetailsForm'
 import LineItemsForm from './LineItemsForm'
 import Pdf from './Pdf'
 import RecipientForm from './RecipientForm'
-import Settings from './Settings'
+import SettingsForm from './Settings'
 
 const App = () => {
 	const devMode = false
-	const [tab, setTab] = React.useState('recipient')
-	const [showSettings, setShowSettings] = useState(false)
-	const [settings, setSettings] = useState({
+	const [tab, setTab] = React.useState<string>('recipient')
+	const [showSettings, setShowSettings] = useState<boolean>(false)
+	const [settings, setSettings] = useState<Settings>({
 		language: null,
 		fontSize: null,
 	})
-	const [recipient, setRecipient] = React.useState({
+	const [recipient, setRecipient] = React.useState<Recipient>({
+		salutation: null,
 		firstName: '',
 		lastName: '',
 		street: '',
 		zipcode: '',
 		city: '',
 	})
-	const [details, setDetails] = React.useState({
+	const [details, setDetails] = React.useState<Details>({
 		customerNo: '',
 		invoiceNo: '',
 		date: '',
 	})
-	const [lineItems, setLineItems] = React.useState([])
+	const [lineItems, setLineItems] = React.useState<Array<LineItem>>([])
 
 	useEffect(() => {
 		async function fetchSettings() {
@@ -82,7 +84,7 @@ const App = () => {
 
 	return (
 		<>
-			{showSettings && <Settings {...{ settings, setSettings, setShowSettings }} />}
+			{showSettings && <SettingsForm {...{ settings, setSettings, setShowSettings }} />}
 			<div style={{ position: 'fixed', top: '10px', right: '10px' }}>
 				{devMode && <button onClick={fillDummyData}>fill</button>}{' '}
 				<button onClick={() => setShowSettings(true)}>settings</button>
@@ -115,6 +117,7 @@ const App = () => {
 					document={<Pdf {...{ recipient, details, lineItems, settings }} />}
 					fileName={i18n.invoice + '.pdf'}
 				>
+					{/* @ts-ignore PDFDownloadLink actually supports passing a function in the `children` prop */}
 					{({ loading }) => (loading ? 'Loading document...' : 'Download now!')}
 				</PDFDownloadLink>
 			</main>
