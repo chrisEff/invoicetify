@@ -40,6 +40,8 @@
 		"@electron/fuses": "^1.8.0",
 		"@eslint/js": "^9.17.0",
 		"@types/dot-object": "^2.1.6",
+		"@types/react": "^19.0.2",
+		"@types/react-dom": "^19.0.2",
 		"@vercel/webpack-asset-relocator-loader": "1.7.3",
 		"babel-loader": "^9.2.1",
 		"css-loader": "^7.1.2",
@@ -51,6 +53,8 @@
 		"node-loader": "^2.1.0",
 		"prettier": "^3.4.2",
 		"prop-types": "^15.8.1",
-		"style-loader": "^4.0.0"
+		"style-loader": "^4.0.0",
+		"ts-loader": "^9.5.1",
+		"typescript": "^5.7.2"
 	}
 }

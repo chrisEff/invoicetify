@@ -1,10 +1,11 @@
 import { Document, Page, Text, View } from '@react-pdf/renderer'
-import PropTypes from 'prop-types'
 import React from 'react'
+import { Style } from '@react-pdf/types/style'
 
 import i18n from '../locales'
+import type { Recipient, Details, LineItem, Settings } from '../types'
 
-const styles = {
+const styles: { [key: string]: Style } = {
 	Page: {
 		fontFamily: 'Helvetica',
 		padding: '2cm',
@@ -34,7 +35,14 @@ const styles = {
 	},
 }
 
-const Pdf = ({ recipient, details, lineItems, settings }) => {
+interface PdfProps {
+	recipient: Recipient
+	details: Details
+	lineItems: Array<LineItem>
+	settings: Settings
+}
+
+const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 	const total = lineItems.reduce((total, item) => total + item.quantity * item.unitPrice, 0)
 
 	return (
@@ -173,27 +181,6 @@ const Pdf = ({ recipient, details, lineItems, settings }) => {
 			</Page>
 		</Document>
 	)
-}
-
-Pdf.propTypes = {
-	recipient: PropTypes.shape({
-		salutation: PropTypes.string.isRequired,
-		firstName: PropTypes.string.isRequired,
-		lastName: PropTypes.string.isRequired,
-		street: PropTypes.string.isRequired,
-		zipcode: PropTypes.string.isRequired,
-		city: PropTypes.string.isRequired,
-	}).isRequired,
-	details: PropTypes.shape({
-		customerNo: PropTypes.string.isRequired,
-		invoiceNo: PropTypes.string.isRequired,
-		date: PropTypes.string.isRequired,
-	}).isRequired,
-	lineItems: PropTypes.array.isRequired,
-	setDetails: PropTypes.func.isRequired,
-	settings: PropTypes.shape({
-		fontSize: PropTypes.string.isRequired,
-	}),
 }
 
 export default Pdf

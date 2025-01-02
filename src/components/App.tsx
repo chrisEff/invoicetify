@@ -3,6 +3,7 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 
 import i18n from '../locales/index'
+import type { Recipient, Details, LineItem } from '../types'
 import DetailsForm from './DetailsForm'
 import LineItemsForm from './LineItemsForm'
 import Pdf from './Pdf'
@@ -11,25 +12,26 @@ import Settings from './Settings'
 
 const App = () => {
 	const devMode = false
-	const [tab, setTab] = React.useState('recipient')
-	const [showSettings, setShowSettings] = useState(false)
+	const [tab, setTab] = React.useState<string>('recipient')
+	const [showSettings, setShowSettings] = useState<boolean>(false)
 	const [settings, setSettings] = useState({
 		language: null,
 		fontSize: null,
 	})
-	const [recipient, setRecipient] = React.useState({
+	const [recipient, setRecipient] = React.useState<Recipient>({
+		salutation: null,
 		firstName: '',
 		lastName: '',
 		street: '',
 		zipcode: '',
 		city: '',
 	})
-	const [details, setDetails] = React.useState({
+	const [details, setDetails] = React.useState<Details>({
 		customerNo: '',
 		invoiceNo: '',
 		date: '',
 	})
-	const [lineItems, setLineItems] = React.useState([])
+	const [lineItems, setLineItems] = React.useState<Array<LineItem>>([])
 
 	useEffect(() => {
 		async function fetchSettings() {
@@ -115,6 +117,7 @@ const App = () => {
 					document={<Pdf {...{ recipient, details, lineItems, settings }} />}
 					fileName={i18n.invoice + '.pdf'}
 				>
+					{/* @ts-ignore PDFDownloadLink actually supports passing a function in the `children` prop */}
 					{({ loading }) => (loading ? 'Loading document...' : 'Download now!')}
 				</PDFDownloadLink>
 			</main>
