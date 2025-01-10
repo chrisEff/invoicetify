@@ -86,8 +86,15 @@ const App = () => {
 		<>
 			{showSettings && <SettingsForm {...{ settings, setSettings, setShowSettings }} />}
 			<div style={{ position: 'fixed', top: '10px', right: '10px' }}>
-				{devMode && <button onClick={fillDummyData}>fill</button>}{' '}
-				<button onClick={() => setShowSettings(true)}>settings</button>
+				{devMode && <button onClick={fillDummyData}>Fill</button>}{' '}
+				<PDFDownloadLink
+					document={<Pdf {...{ recipient, details, lineItems, settings }} />}
+					fileName={i18n.invoice + '.pdf'}
+				>
+					{/* @ts-ignore PDFDownloadLink actually supports passing a function in the `children` prop */}
+					{({ loading }) => (loading ? '' : <button>Save PDF</button>)}
+				</PDFDownloadLink>{' '}
+				<button onClick={() => setShowSettings(true)}>Settings</button>
 			</div>
 			<h2>{i18n.invoice}</h2>
 			<nav>
@@ -113,13 +120,6 @@ const App = () => {
 							return <RecipientForm {...{ recipient, setRecipient }} />
 					}
 				})()}
-				<PDFDownloadLink
-					document={<Pdf {...{ recipient, details, lineItems, settings }} />}
-					fileName={i18n.invoice + '.pdf'}
-				>
-					{/* @ts-ignore PDFDownloadLink actually supports passing a function in the `children` prop */}
-					{({ loading }) => (loading ? 'Loading document...' : 'Download now!')}
-				</PDFDownloadLink>
 			</main>
 		</>
 	)
