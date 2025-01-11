@@ -20,5 +20,10 @@ export interface LineItem {
 }
 
 export interface Settings {
+	language: string
 	fontSize: number
+	senderAddress: string
+	introductoryText: string
+	closingText: string
+	footer: Array<string>
 }

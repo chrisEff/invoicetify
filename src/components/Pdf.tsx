@@ -50,8 +50,7 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 			<Page size="A4" style={{ ...styles.Page, fontSize: settings.fontSize }}>
 				<View style={{ marginTop: '3.5cm', minHeight: '3cm' }}>
 					<Text style={{ fontSize: '6pt', marginBottom: '0.5cm', textDecoration: 'underline' }}>
-						{/* TODO implement sender address */}
-						My Awesome Company • My Street 123 • 12345 My City
+						{settings.senderAddress}
 					</Text>
 					<Text>
 						{recipient.firstName} {recipient.lastName}
@@ -87,11 +86,7 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 						,
 					</Text>
 					<Text> </Text>
-					{/* TODO add introductory text */}
-					<Text>
-						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-						dolore magna aliquyam erat, sed diam voluptua
-					</Text>
+					<Text>{settings.introductoryText}</Text>
 				</View>
 
 				<View style={styles.table}>
@@ -150,10 +145,8 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 				<View>
 					<Text> </Text>
 					<Text> </Text>
-					{/* TODO add closing text */}
 					<Text>
-						Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-						commodo consequat.
+						<Text>{settings.closingText}</Text>
 					</Text>
 					<Text> </Text>
 					<Text> </Text>
@@ -167,16 +160,19 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 				<View
 					style={{
 						borderTop: '1px solid black',
+						display: 'flex',
+						flexDirection: 'row',
 						fontSize: '9pt',
 						position: 'absolute',
 						bottom: '1.5cm',
 						width: '17cm',
 					}}
 				>
-					{/* TODO add bank details etc. */}
-					<Text>Awesome Bank</Text>
-					<Text>IBAN: DE12 3456 7890 1234 5678 90</Text>
-					<Text>BIC: AWESOMEBANK</Text>
+					{settings.footer.map((item, index) => (
+						<View key={index} style={{ minWidth: '3cm', paddingRight: '2mm' }}>
+							<Text>{item}</Text>
+						</View>
+					))}
 				</View>
 			</Page>
 		</Document>

@@ -36,6 +36,9 @@
   "settings": {
     "header": "Settings",
     "language": "Language",
-    "fontSize": "Font Size"
+    "fontSize": "Font Size",
+    "senderAddress": "Sender Address",
+    "introductoryText": "Introductory text",
+    "closingText": "Closing text"
   }
 }

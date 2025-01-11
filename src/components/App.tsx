@@ -14,10 +14,7 @@ const App = () => {
 	const devMode = false
 	const [tab, setTab] = React.useState<string>('recipient')
 	const [showSettings, setShowSettings] = useState<boolean>(false)
-	const [settings, setSettings] = useState<Settings>({
-		language: null,
-		fontSize: null,
-	})
+	const [settings, setSettings] = useState<Settings>(null)
 	const [recipient, setRecipient] = React.useState<Recipient>({
 		salutation: null,
 		firstName: '',
@@ -33,20 +30,27 @@ const App = () => {
 	})
 	const [lineItems, setLineItems] = React.useState<Array<LineItem>>([])
 
+	async function fetchSettings() {
+		const fetchedSettings = await window.electronAPI.storeGet('settings')
+		setSettings(fetchedSettings)
+	}
+
 	useEffect(() => {
-		async function fetchSettings() {
-			const language = await window.electronAPI.storeGet('language')
-			const fontSize = await window.electronAPI.storeGet('fontSize')
-			setSettings(existing => ({ ...existing, language, fontSize }))
-		}
-		if (settings.language === null) {
+		if (settings === null) {
 			fetchSettings()
 		}
 	})
 
 	useEffect(() => {
-		settings.language !== null && window.electronAPI.storeSet('language', settings.language)
-		settings.fontSize !== null && window.electronAPI.storeSet('fontSize', settings.fontSize)
+		if (settings) {
+			settings.language !== null && window.electronAPI.storeSet('settings.language', settings.language)
+			settings.fontSize !== null && window.electronAPI.storeSet('settings.fontSize', settings.fontSize)
+			settings.senderAddress !== null && window.electronAPI.storeSet('settings.senderAddress', settings.senderAddress)
+			settings.introductoryText !== null &&
+				window.electronAPI.storeSet('settings.introductoryText', settings.introductoryText)
+			settings.closingText !== null && window.electronAPI.storeSet('settings.closingText', settings.closingText)
+			settings.footer !== null && window.electronAPI.storeSet('settings.footer', settings.footer)
+		}
 	}, [settings])
 
 	const fillDummyData = () => {
@@ -87,14 +91,16 @@ const App = () => {
 			{showSettings && <SettingsForm {...{ settings, setSettings, setShowSettings }} />}
 			<div style={{ position: 'fixed', top: '10px', right: '10px' }}>
 				{devMode && <button onClick={fillDummyData}>Fill</button>}{' '}
-				<PDFDownloadLink
-					document={<Pdf {...{ recipient, details, lineItems, settings }} />}
-					fileName={i18n.invoice + '.pdf'}
-				>
-					{/* @ts-ignore PDFDownloadLink actually supports passing a function in the `children` prop */}
-					{({ loading }) => (loading ? '' : <button>Save PDF</button>)}
-				</PDFDownloadLink>{' '}
-				<button onClick={() => setShowSettings(true)}>Settings</button>
+				{settings && (
+					<PDFDownloadLink
+						document={<Pdf {...{ recipient, details, lineItems, settings }} />}
+						fileName={i18n.invoice + '.pdf'}
+					>
+						{/* @ts-ignore PDFDownloadLink actually supports passing a function in the `children` prop */}
+						{({ loading }) => (loading ? '' : <button>Save PDF</button>)}
+					</PDFDownloadLink>
+				)}{' '}
+				<button onClick={() => setShowSettings(true)}>{i18n.settings.header}</button>
 			</div>
 			<h2>{i18n.invoice}</h2>
 			<nav>

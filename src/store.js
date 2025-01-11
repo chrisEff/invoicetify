@@ -11,8 +11,14 @@ const defaults = {
 		},
 	},
 	renderer: {
-		language: 'en',
-		fontSize: 12,
+		settings: {
+			language: 'en',
+			fontSize: 12,
+			senderAddress: '',
+			introductoryText: '',
+			closingText: '',
+			footer: [],
+		},
 	},
 }
 
