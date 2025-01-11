@@ -1,21 +1,22 @@
 import { PDFDownloadLink } from '@react-pdf/renderer'
-import * as React from 'react'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import i18n from '../locales/index'
 import type { Recipient, Details, LineItem, Settings } from '../types'
 import DetailsForm from './DetailsForm'
 import LineItemsForm from './LineItemsForm'
 import Pdf from './Pdf'
 import RecipientForm from './RecipientForm'
 import SettingsForm from './Settings'
+import { TranslationsProvider, useTranslations } from '../context/TranslationsContext'
 
 const App = () => {
+	const { translations: i18n } = useTranslations()
+
 	const devMode = false
-	const [tab, setTab] = React.useState<string>('recipient')
+	const [tab, setTab] = useState<string>('recipient')
 	const [showSettings, setShowSettings] = useState<boolean>(false)
 	const [settings, setSettings] = useState<Settings>(null)
-	const [recipient, setRecipient] = React.useState<Recipient>({
+	const [recipient, setRecipient] = useState<Recipient>({
 		salutation: null,
 		firstName: '',
 		lastName: '',
@@ -23,12 +24,12 @@ const App = () => {
 		zipcode: '',
 		city: '',
 	})
-	const [details, setDetails] = React.useState<Details>({
+	const [details, setDetails] = useState<Details>({
 		customerNo: '',
 		invoiceNo: '',
 		date: '',
 	})
-	const [lineItems, setLineItems] = React.useState<Array<LineItem>>([])
+	const [lineItems, setLineItems] = useState<Array<LineItem>>([])
 
 	async function fetchSettings() {
 		const fetchedSettings = await window.electronAPI.storeGet('settings')
@@ -93,11 +94,15 @@ const App = () => {
 				{devMode && <button onClick={fillDummyData}>Fill</button>}{' '}
 				{settings && (
 					<PDFDownloadLink
-						document={<Pdf {...{ recipient, details, lineItems, settings }} />}
+						document={
+							<TranslationsProvider>
+								<Pdf {...{ recipient, details, lineItems, settings }} />
+							</TranslationsProvider>
+						}
 						fileName={i18n.invoice + '.pdf'}
 					>
 						{/* @ts-ignore PDFDownloadLink actually supports passing a function in the `children` prop */}
-						{({ loading }) => (loading ? '' : <button>Save PDF</button>)}
+						{({ loading }) => (loading ? '' : <button>{i18n.exportPdf}</button>)}
 					</PDFDownloadLink>
 				)}{' '}
 				<button onClick={() => setShowSettings(true)}>{i18n.settings.header}</button>

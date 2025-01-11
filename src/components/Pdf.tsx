@@ -2,8 +2,8 @@ import { Document, Page, Text, View } from '@react-pdf/renderer'
 import React from 'react'
 import { Style } from '@react-pdf/types/style'
 
-import i18n from '../locales'
 import type { Recipient, Details, LineItem, Settings } from '../types'
+import { useTranslations } from '../context/TranslationsContext'
 
 const styles: { [key: string]: Style } = {
 	Page: {
@@ -43,6 +43,8 @@ interface PdfProps {
 }
 
 const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
+	const { translations: i18n } = useTranslations()
+
 	const total = lineItems.reduce((total, item) => total + item.quantity * item.unitPrice, 0)
 
 	return (

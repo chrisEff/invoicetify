@@ -1,9 +1,9 @@
-import React, { useRef } from 'react'
+import React, { ChangeEvent, CSSProperties, useRef } from 'react'
 
-import i18n from '../locales'
 import type { Settings } from '../types'
+import { useTranslations } from '../context/TranslationsContext'
 
-const styles: { [key: string]: React.CSSProperties } = {
+const styles: { [key: string]: CSSProperties } = {
 	dialog: {
 		height: 'calc(100% - 80px)',
 		width: 'calc(100% - 80px)',
@@ -26,16 +26,20 @@ interface SettingsProps {
 const Settings = ({ settings, setSettings, setShowSettings }: SettingsProps) => {
 	const footerRef = useRef(null)
 
-	const updateLanguage = (e: React.ChangeEvent<HTMLInputElement>) =>
+	const { setLanguage, translations: i18n } = useTranslations()
+
+	const updateLanguage = (e: ChangeEvent<HTMLInputElement>) => {
+		setLanguage(e.target.value)
 		setSettings(existing => ({ ...existing, language: e.target.value }))
-	const updateFontSize = (e: React.ChangeEvent<HTMLInputElement>) =>
+	}
+	const updateFontSize = (e: ChangeEvent<HTMLInputElement>) =>
 		setSettings(existing => ({ ...existing, fontSize: parseInt(e.target.value) }))
 
-	const updateSenderAddress = (e: React.ChangeEvent<HTMLInputElement>) =>
+	const updateSenderAddress = (e: ChangeEvent<HTMLInputElement>) =>
 		setSettings(existing => ({ ...existing, senderAddress: e.target.value }))
-	const updateIntroductoryText = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+	const updateIntroductoryText = (e: ChangeEvent<HTMLTextAreaElement>) =>
 		setSettings(existing => ({ ...existing, introductoryText: e.target.value }))
-	const updateClosingText = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+	const updateClosingText = (e: ChangeEvent<HTMLTextAreaElement>) =>
 		setSettings(existing => ({ ...existing, closingText: e.target.value }))
 
 	const addFooterSection = () => {

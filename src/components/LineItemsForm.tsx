@@ -1,8 +1,8 @@
-import * as React from 'react'
-import { useRef } from 'react'
+import React, { FormEvent } from 'react'
+import { useRef, useState } from 'react'
 
-import i18n from '../locales'
 import type { LineItem } from '../types'
+import { useTranslations } from '../context/TranslationsContext'
 
 interface LineItemsFormProps {
 	lineItems: Array<LineItem>
@@ -10,7 +10,9 @@ interface LineItemsFormProps {
 }
 
 const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFormProps) {
-	const [dataComplete, setDataComplete] = React.useState(false)
+	const { translations: i18n } = useTranslations()
+
+	const [dataComplete, setDataComplete] = useState(false)
 	const titleRef = useRef<HTMLInputElement>(null)
 	const quantityRef = useRef<HTMLInputElement>(null)
 	const unitPriceRef = useRef<HTMLInputElement>(null)
@@ -46,7 +48,7 @@ const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFormProps)
 		<>
 			<div style={{ display: 'flex', flexDirection: 'column' }}>
 				<form
-					onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+					onSubmit={(e: FormEvent<HTMLFormElement>) => {
 						e.preventDefault()
 						dataComplete && addLineItem()
 					}}

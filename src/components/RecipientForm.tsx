@@ -1,7 +1,7 @@
-import * as React from 'react'
+import React, { ChangeEvent } from 'react'
 
-import i18n from '../locales'
 import type { Recipient } from '../types'
+import { useTranslations } from '../context/TranslationsContext'
 
 interface RecipientFormProps {
 	recipient: Recipient
@@ -9,17 +9,19 @@ interface RecipientFormProps {
 }
 
 const RecipientForm = function ({ recipient, setRecipient }: RecipientFormProps) {
-	const updateSalutation = (e: React.ChangeEvent<HTMLInputElement>) =>
+	const { translations: i18n } = useTranslations()
+
+	const updateSalutation = (e: ChangeEvent<HTMLInputElement>) =>
 		setRecipient((existing: Recipient) => ({ ...existing, salutation: e.target.value }))
-	const updateFirstName = (e: React.ChangeEvent<HTMLInputElement>) =>
+	const updateFirstName = (e: ChangeEvent<HTMLInputElement>) =>
 		setRecipient((existing: Recipient) => ({ ...existing, firstName: e.target.value }))
-	const updateLastName = (e: React.ChangeEvent<HTMLInputElement>) =>
+	const updateLastName = (e: ChangeEvent<HTMLInputElement>) =>
 		setRecipient((existing: Recipient) => ({ ...existing, lastName: e.target.value }))
-	const updateStreet = (e: React.ChangeEvent<HTMLInputElement>) =>
+	const updateStreet = (e: ChangeEvent<HTMLInputElement>) =>
 		setRecipient((existing: Recipient) => ({ ...existing, street: e.target.value }))
-	const updateZipcode = (e: React.ChangeEvent<HTMLInputElement>) =>
+	const updateZipcode = (e: ChangeEvent<HTMLInputElement>) =>
 		setRecipient((existing: Recipient) => ({ ...existing, zipcode: e.target.value }))
-	const updateCity = (e: React.ChangeEvent<HTMLInputElement>) =>
+	const updateCity = (e: ChangeEvent<HTMLInputElement>) =>
 		setRecipient((existing: Recipient) => ({ ...existing, city: e.target.value }))
 
 	return (

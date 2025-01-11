@@ -1,6 +1,7 @@
 {
   "invoice": "Rechnung",
   "kindRegards": "Mit freundlichen Grüßen",
+  "exportPdf": "PDF exportieren",
   "tabs": {
     "recipient": "Empfänger",
     "details": "Details",

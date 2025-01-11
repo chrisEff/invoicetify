@@ -1,7 +1,7 @@
-import * as React from 'react'
+import React, { ChangeEvent } from 'react'
 
-import i18n from '../locales'
 import type { Details } from '../types'
+import { useTranslations } from '../context/TranslationsContext'
 
 interface DetailsFormProps {
 	details: Details
@@ -9,11 +9,13 @@ interface DetailsFormProps {
 }
 
 const DetailsForm = function ({ details, setDetails }: DetailsFormProps) {
-	const updateCustomerNo = (e: React.ChangeEvent<HTMLInputElement>) =>
+	const { translations: i18n } = useTranslations()
+
+	const updateCustomerNo = (e: ChangeEvent<HTMLInputElement>) =>
 		setDetails((existing: Details) => ({ ...existing, customerNo: e.target.value }))
-	const updateInvoiceNo = (e: React.ChangeEvent<HTMLInputElement>) =>
+	const updateInvoiceNo = (e: ChangeEvent<HTMLInputElement>) =>
 		setDetails((existing: Details) => ({ ...existing, invoiceNo: e.target.value }))
-	const updateDate = (e: React.ChangeEvent<HTMLInputElement>) =>
+	const updateDate = (e: ChangeEvent<HTMLInputElement>) =>
 		setDetails((existing: Details) => ({ ...existing, date: e.target.value }))
 
 	return (

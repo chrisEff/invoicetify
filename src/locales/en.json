@@ -1,6 +1,7 @@
 {
   "invoice": "Invoice",
   "kindRegards": "Kind regards",
+  "exportPdf": "export PDF",
   "tabs": {
     "recipient": "Recipient",
     "details": "Details",
