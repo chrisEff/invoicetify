@@ -76,17 +76,23 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 					<Text style={{ fontFamily: 'Helvetica-Bold' }}>
 						{i18n.invoice} {details.invoiceNo}
 					</Text>
-					<Text>
-						{/* TODO implement service period */}
-						{i18n.details.servicePeriod}: 26.09.2024 - 01.11.2024
-					</Text>
-					<Text> </Text>
-					<Text>
-						{recipient.salutation === 'dearSirOrMadam'
-							? i18n.salutations.dearSirOrMadam
-							: i18n.salutations[recipient.salutation] + ' ' + recipient.lastName}
-						,
-					</Text>
+					{details.servicePeriodStart && (
+						<Text>
+							{i18n.details.servicePeriod}: {details.servicePeriodStart}
+							{details.servicePeriodEnd && <> - {details.servicePeriodEnd}</>}
+						</Text>
+					)}
+					{recipient.salutation && (
+						<>
+							<Text> </Text>
+							<Text>
+								{recipient.salutation === 'dearSirOrMadam'
+									? i18n.salutations.dearSirOrMadam
+									: i18n.salutations[recipient.salutation] + ' ' + recipient.lastName}
+								,
+							</Text>
+						</>
+					)}
 					<Text> </Text>
 					<Text>{settings.introductoryText}</Text>
 				</View>

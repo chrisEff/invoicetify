@@ -11,6 +11,8 @@ export interface Details {
 	customerNo: string
 	invoiceNo: string
 	date: string
+	servicePeriodStart: string
+	servicePeriodEnd: string
 }
 
 export interface LineItem {

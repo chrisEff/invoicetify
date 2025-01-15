@@ -28,6 +28,8 @@ const App = () => {
 		customerNo: '',
 		invoiceNo: '',
 		date: '',
+		servicePeriodStart: '',
+		servicePeriodEnd: '',
 	})
 	const [lineItems, setLineItems] = useState<Array<LineItem>>([])
 
@@ -67,6 +69,8 @@ const App = () => {
 			customerNo: '12345',
 			invoiceNo: '12345-67890',
 			date: '01.01.2025',
+			servicePeriodStart: '26.09.2024',
+			servicePeriodEnd: '01.11.2024',
 		})
 		setLineItems([
 			{
