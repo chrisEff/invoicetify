@@ -24,7 +24,9 @@
     "customerNo": "Customer No",
     "invoiceNo": "Invoice No",
     "date": "Date",
-    "servicePeriod": "Service Period"
+    "servicePeriod": "Service Period",
+    "servicePeriodStart": "Service Period from",
+    "servicePeriodEnd": "until"
   },
   "lineItems": {
     "itemNo": "Item No",
@@ -40,6 +42,8 @@
     "fontSize": "Font Size",
     "senderAddress": "Sender Address",
     "introductoryText": "Introductory text",
-    "closingText": "Closing text"
+    "closingText": "Closing text",
+    "add": "Add",
+    "remove": "Remove"
   }
 }

@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react'
+import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react'
 
 import translationsDE from '../locales/de.json'
 import translationsEN from '../locales/en.json'
@@ -26,7 +26,7 @@ export const TranslationsProvider = ({ children }: PropsWithChildren) => {
 
 	useEffect(() => {
 		async function loadLanguage() {
-			const lang = await window.electronAPI.storeGet('settings.language')
+			const lang = (await window.electronAPI.storeGet('settings.language')) as string
 			setLanguage(lang)
 		}
 		loadLanguage()

@@ -1,9 +1,10 @@
-import { Document, Page, Text, View } from '@react-pdf/renderer'
 import React from 'react'
+
+import { Document, Page, Text, View } from '@react-pdf/renderer'
 import { Style } from '@react-pdf/types/style'
 
-import type { Recipient, Details, LineItem, Settings } from '../types'
 import { useTranslations } from '../context/TranslationsContext'
+import type { Details, LineItem, Recipient, Settings } from '../types'
 
 const styles: { [key: string]: Style } = {
 	Page: {

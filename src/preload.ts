@@ -3,16 +3,18 @@
 
 import { contextBridge, ipcRenderer } from 'electron'
 
+type StoreValue = string | number | boolean | object | null
+
 contextBridge.exposeInMainWorld('electronAPI', {
 	storeGet: (key: string) => ipcRenderer.invoke('store:get', key),
-	storeSet: (key: string, value: any) => ipcRenderer.invoke('store:set', key, value),
+	storeSet: (key: string, value: StoreValue) => ipcRenderer.invoke('store:set', key, value),
 })
 
 declare global {
 	interface Window {
 		electronAPI: {
-			storeGet: Function
-			storeSet: Function
+			storeGet: (key: string) => Promise<StoreValue>
+			storeSet: (key: string, value: StoreValue) => Promise<void>
 		}
 	}
 }

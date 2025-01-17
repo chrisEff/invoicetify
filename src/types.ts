@@ -1,5 +1,7 @@
+export type Salutation = 'dearMr' | 'dearMs' | 'dearSirOrMadam'
+
 export interface Recipient {
-	salutation: 'dearMr' | 'dearMs' | 'dearSirOrMadam'
+	salutation: Salutation
 	firstName: string
 	lastName: string
 	street: string

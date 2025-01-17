@@ -1,7 +1,20 @@
 import React, { ChangeEvent, CSSProperties, useRef } from 'react'
 
-import type { Settings } from '../types'
+import { AddCircle, Close, RemoveCircle } from '@mui/icons-material'
+import {
+	Box,
+	FormControl,
+	FormControlLabel,
+	FormLabel,
+	Radio,
+	RadioGroup,
+	TextField,
+	Tooltip,
+	Typography,
+} from '@mui/material'
+
 import { useTranslations } from '../context/TranslationsContext'
+import type { Settings } from '../types'
 
 const styles: { [key: string]: CSSProperties } = {
 	dialog: {
@@ -28,10 +41,9 @@ const styles: { [key: string]: CSSProperties } = {
 		overflow: 'auto',
 	},
 	closeButton: {
-		fontSize: '32px',
 		position: 'absolute',
-		top: 5,
-		right: 5,
+		top: 10,
+		right: 10,
 		cursor: 'pointer',
 	},
 }
@@ -79,87 +91,87 @@ const Settings = ({ settings, setSettings, setShowSettings }: SettingsProps) => 
 		<dialog open style={styles.dialog}>
 			<div style={styles.dialogContent}>
 				<div style={styles.dialogContentScroll}>
-					<div style={styles.closeButton} onClick={() => setShowSettings(false)}>
-						🆇
-					</div>
-					<h2>{i18n.settings.header}</h2>
-					{i18n.settings.language}:
-					<input type="radio" name="lang" value="en" onChange={updateLanguage} checked={settings.language === 'en'} />
-					🇬🇧
-					<input type="radio" name="lang" value="de" onChange={updateLanguage} checked={settings.language === 'de'} />
-					🇩🇪
-					<br />
-					<br />
-					<label htmlFor="fontSize">{i18n.settings.fontSize}:</label>
-					<input type="number" id="fontSize" defaultValue={settings.fontSize} onChange={updateFontSize} />
-					<br />
-					<br />
-					<label htmlFor="senderAddress">{i18n.settings.senderAddress}:</label>
-					<br />
-					<input
-						id="senderAddress"
-						style={{ width: '50em' }}
-						defaultValue={settings.senderAddress}
-						onChange={updateSenderAddress}
-					/>
-					<br />
-					<br />
-					<label htmlFor="introductoryText">{i18n.settings.introductoryText}:</label>
-					<br />
-					<textarea
-						id="introductoryText"
-						rows={5}
-						onChange={updateIntroductoryText}
-						defaultValue={settings.introductoryText}
-						style={{ minHeight: '3em', minWidth: '20em', width: '50em' }}
-					/>
-					<br />
-					<br />
-					<label htmlFor="closingText">{i18n.settings.closingText}:</label>
-					<br />
-					<textarea
-						id="closingText"
-						rows={5}
-						onChange={updateClosingText}
-						defaultValue={settings.closingText}
-						style={{ minHeight: '3em', minWidth: '20em', width: '50em' }}
-					/>
-					<br />
-					<br />
-					<label htmlFor="footer">Footer:</label>
-					<div
-						style={{
-							display: 'flex',
-							flexDirection: 'row',
-						}}
-					>
-						{!settings.footer.length && (
-							<>
-								<div style={{ color: 'silver', padding: 5 }}>
-									<pre>
-										No footer
-										<br />
-										sections
-										<br />
-										added yet.
-									</pre>
+					<Box sx={{ display: 'flex', flexDirection: 'column' }}>
+						<Close style={styles.closeButton} onClick={() => setShowSettings(false)} />
+						<Typography variant="h2">{i18n.settings.header}</Typography>
+						<FormControl margin="dense">
+							<FormLabel>{i18n.settings.language}</FormLabel>
+							<RadioGroup value={settings.language} onChange={updateLanguage}>
+								<FormControlLabel value="en" control={<Radio />} label="🇬🇧" />
+								<FormControlLabel value="de" control={<Radio />} label="🇩🇪" />
+							</RadioGroup>
+						</FormControl>
+						<TextField
+							label={i18n.settings.fontSize}
+							defaultValue={settings.fontSize}
+							onChange={updateFontSize}
+							margin="normal"
+						/>
+						<TextField
+							label={i18n.settings.senderAddress}
+							defaultValue={settings.senderAddress}
+							onChange={updateSenderAddress}
+							fullWidth
+							margin="normal"
+						/>
+						<TextField
+							label={i18n.settings.introductoryText}
+							defaultValue={settings.introductoryText}
+							onChange={updateIntroductoryText}
+							fullWidth
+							multiline
+							rows={5}
+							margin="normal"
+						/>
+						<TextField
+							label={i18n.settings.closingText}
+							defaultValue={settings.closingText}
+							onChange={updateClosingText}
+							fullWidth
+							multiline
+							rows={5}
+							margin="normal"
+						/>
+						<br />
+						<FormLabel>Footer:</FormLabel>
+						<div
+							style={{
+								display: 'flex',
+								flexDirection: 'row',
+							}}
+						>
+							{!settings.footer.length && (
+								<>
+									<div style={{ color: 'silver', padding: 5 }}>
+										<pre>
+											No footer
+											<br />
+											sections
+											<br />
+											added yet.
+										</pre>
+									</div>
+								</>
+							)}
+							{settings.footer.map((item, index) => (
+								<div key={index} style={{ display: 'flex', flexDirection: 'column', padding: 5 }}>
+									<pre style={{ flexGrow: 1 }}>{item}</pre>
+									<Tooltip title={i18n.settings.remove}>
+										<RemoveCircle onClick={() => removeFooterSection(index)} />
+									</Tooltip>
 								</div>
+							))}
+						</div>
+						{settings.footer.length < 5 && (
+							<>
+								<TextField inputRef={footerRef} multiline rows={4} />
+								<br />
+								<Tooltip title={i18n.settings.add}>
+									<AddCircle onClick={addFooterSection} />
+								</Tooltip>
 							</>
 						)}
-						{settings.footer.map((item, index) => (
-							<div key={index} style={{ padding: 5 }}>
-								<pre>{item}</pre>
-								<input type="button" value="-" onClick={() => removeFooterSection(index)} />
-							</div>
-						))}
-					</div>
-					{settings.footer.length < 5 && (
-						<>
-							<textarea id="footer" ref={footerRef} rows={4} cols={40}></textarea>
-							<br />
-							<input type="button" value="➕" onClick={addFooterSection} />
-						</>
-					)}
+					</Box>
 				</div>
 			</div>
 		</dialog>

@@ -1,13 +1,20 @@
-import { PDFDownloadLink } from '@react-pdf/renderer'
 import React, { useEffect, useState } from 'react'
 
-import type { Recipient, Details, LineItem, Settings } from '../types'
+import {
+	AutoAwesome as AutoAwesomeIcon,
+	PictureAsPdfOutlined as PictureAsPdfOutlinedIcon,
+	Settings as SettingsIcon,
+} from '@mui/icons-material'
+import { Button, Tab, Tabs, Tooltip, Typography } from '@mui/material'
+import { PDFDownloadLink } from '@react-pdf/renderer'
+
+import { TranslationsProvider, useTranslations } from '../context/TranslationsContext'
+import type { Details, LineItem, Recipient, Settings } from '../types'
 import DetailsForm from './DetailsForm'
 import LineItemsForm from './LineItemsForm'
 import Pdf from './Pdf'
 import RecipientForm from './RecipientForm'
 import SettingsForm from './Settings'
-import { TranslationsProvider, useTranslations } from '../context/TranslationsContext'
 
 const App = () => {
 	const { translations: i18n } = useTranslations()
@@ -34,7 +41,7 @@ const App = () => {
 	const [lineItems, setLineItems] = useState<Array<LineItem>>([])
 
 	async function fetchSettings() {
-		const fetchedSettings = await window.electronAPI.storeGet('settings')
+		const fetchedSettings = (await window.electronAPI.storeGet('settings')) as Settings
 		setSettings(fetchedSettings)
 	}
 
@@ -68,9 +75,9 @@ const App = () => {
 		setDetails({
 			customerNo: '12345',
 			invoiceNo: '12345-67890',
-			date: '01.01.2025',
-			servicePeriodStart: '26.09.2024',
-			servicePeriodEnd: '01.11.2024',
+			date: '2025-01-01',
+			servicePeriodStart: '2024-09-26',
+			servicePeriodEnd: '2024-11-01',
 		})
 		setLineItems([
 			{
@@ -95,7 +102,13 @@ const App = () => {
 		<>
 			{showSettings && <SettingsForm {...{ settings, setSettings, setShowSettings }} />}
 			<div style={{ position: 'fixed', top: '10px', right: '10px' }}>
-				{devMode && <button onClick={fillDummyData}>Fill</button>}{' '}
+				{devMode && (
+					<Tooltip title="Auto-fill with dummy data">
+						<Button onClick={fillDummyData}>
+							<AutoAwesomeIcon />
+						</Button>
+					</Tooltip>
+				)}{' '}
 				{settings && (
 					<PDFDownloadLink
 						document={
@@ -105,24 +118,33 @@ const App = () => {
 						}
 						fileName={i18n.invoice + '.pdf'}
 					>
-						{/* @ts-ignore PDFDownloadLink actually supports passing a function in the `children` prop */}
-						{({ loading }) => (loading ? '' : <button>{i18n.exportPdf}</button>)}
+						{/* @ts-expect-error PDFDownloadLink actually supports passing a function in the `children` prop */}
+						{({ loading }) =>
+							loading ? (
+								''
+							) : (
+								<Tooltip title={i18n.exportPdf}>
+									<Button>
+										<PictureAsPdfOutlinedIcon />
+									</Button>
+								</Tooltip>
+							)
+						}
 					</PDFDownloadLink>
 				)}{' '}
-				<button onClick={() => setShowSettings(true)}>{i18n.settings.header}</button>
+				<Tooltip title={i18n.settings.header}>
+					<Button onClick={() => setShowSettings(true)}>
+						<SettingsIcon />
+					</Button>
+				</Tooltip>
 			</div>
-			<h2>{i18n.invoice}</h2>
-			<nav>
-				<div className={tab === 'recipient' ? 'active' : ''} onClick={() => setTab('recipient')}>
-					{i18n.tabs.recipient}
-				</div>
-				<div className={tab === 'details' ? 'active' : ''} onClick={() => setTab('details')}>
-					{i18n.tabs.details}
-				</div>
-				<div className={tab === 'lineItems' ? 'active' : ''} onClick={() => setTab('lineItems')}>
-					{i18n.tabs.lineItems}
-				</div>
-			</nav>
+			<Typography variant="h1">{i18n.invoice}</Typography>
+
+			<Tabs value={tab} onChange={(e, value) => setTab(value)}>
+				<Tab label={i18n.tabs.recipient} value="recipient" />
+				<Tab label={i18n.tabs.details} value="details" />
+				<Tab label={i18n.tabs.lineItems} value="lineItems" />
+			</Tabs>
 			<main>
 				{(() => {
 					switch (tab) {

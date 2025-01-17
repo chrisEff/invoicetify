@@ -24,7 +24,9 @@
     "customerNo": "Kundennummer",
     "invoiceNo": "Rechnungsnummer",
     "date": "Datum",
-    "servicePeriod": "Leistungszeitraum"
+    "servicePeriod": "Leistungszeitraum",
+    "servicePeriodStart": "Leistungszeitraum von",
+    "servicePeriodEnd": "bis"
   },
   "lineItems": {
     "itemNo": "Pos.",
@@ -40,7 +42,9 @@
     "fontSize": "Schriftgröße",
     "senderAddress": "Absenderadresse",
     "introductoryText": "Einleitungstext",
-    "closingText": "Schlusstext"
+    "closingText": "Schlusstext",
+    "add": "Hinzufügen",
+    "remove": "Entfernen"
   }
 }
 

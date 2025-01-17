@@ -1,11 +1,13 @@
 import React, { ChangeEvent } from 'react'
 
-import type { Details } from '../types'
+import { FormControl, TextField } from '@mui/material'
+
 import { useTranslations } from '../context/TranslationsContext'
+import type { Details } from '../types'
 
 interface DetailsFormProps {
 	details: Details
-	setDetails: Function
+	setDetails: (cb: (existing: Details) => Details) => void
 }
 
 const DetailsForm = function ({ details, setDetails }: DetailsFormProps) {
@@ -28,30 +30,35 @@ const DetailsForm = function ({ details, setDetails }: DetailsFormProps) {
 
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column', width: '500px', maxWidth: '50%' }}>
-			<label htmlFor="customerNo">{i18n.details.customerNo}:</label>
-			<input type="text" id="customerNo" value={details.customerNo} onChange={updateCustomerNo} />
+			<TextField label={i18n.details.customerNo} value={details.customerNo} onChange={updateCustomerNo} />
 			<br />
-			<label htmlFor="invoiceNo">{i18n.details.invoiceNo}:</label>
-			<input type="text" id="invoiceNo" value={details.invoiceNo} onChange={updateInvoiceNo} />
+			<TextField label={i18n.details.invoiceNo} value={details.invoiceNo} onChange={updateInvoiceNo} />
 			<br />
-			<label htmlFor="date">{i18n.details.date}:</label>
-			<input type="text" id="date" value={details.date} onChange={updateDate} />
+			<FormControl sx={{ filled: '1' }}>
+				<TextField
+					label={i18n.details.date}
+					value={details.date}
+					onChange={updateDate}
+					type={'date'}
+					slotProps={{ inputLabel: { shrink: true } }}
+				/>
+			</FormControl>
 			<br />
-			<label htmlFor="servicePeriodStart">{i18n.details.servicePeriod}:</label>
 			<div style={{ display: 'flex', flexDirection: 'row' }}>
-				<input
-					type="text"
-					id="servicePeriodStart"
+				<TextField
+					label={i18n.details.servicePeriodStart}
 					value={details.servicePeriodStart}
 					onChange={updateServicePeriodStart}
+					type={'date'}
+					slotProps={{ inputLabel: { shrink: true } }}
 					style={{ flexGrow: 1 }}
-				/>
-				<div style={{ textAlign: 'center', width: '20px' }}> - </div>
-				<input
-					type="text"
-					id="servicePeriodEnd"
+				/>{' '}
+				<TextField
+					label={i18n.details.servicePeriodEnd}
 					value={details.servicePeriodEnd}
 					onChange={updateServicePeriodEnd}
+					type={'date'}
+					slotProps={{ inputLabel: { shrink: true } }}
 					style={{ flexGrow: 1 }}
 				/>
 			</div>

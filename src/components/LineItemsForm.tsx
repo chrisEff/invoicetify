@@ -1,12 +1,14 @@
-import React, { FormEvent } from 'react'
-import { useRef, useState } from 'react'
+import React, { FormEvent, useRef, useState } from 'react'
 
-import type { LineItem } from '../types'
+import { AddCircle, RemoveCircle } from '@mui/icons-material'
+import { Fab, Table, TableBody, TableCell, TableHead, TableRow, TextField } from '@mui/material'
+
 import { useTranslations } from '../context/TranslationsContext'
+import type { LineItem } from '../types'
 
 interface LineItemsFormProps {
 	lineItems: Array<LineItem>
-	setLineItems: Function
+	setLineItems: (cb: (existing: Array<LineItem>) => Array<LineItem>) => void
 }
 
 const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFormProps) {
@@ -53,68 +55,52 @@ const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFormProps)
 						dataComplete && addLineItem()
 					}}
 				>
-					<table>
-						<thead>
-							<tr>
-								<th>{i18n.lineItems.itemNo}</th>
-								<th>{i18n.lineItems.title}</th>
-								<th style={{ width: '10em' }}>{i18n.lineItems.quantity}</th>
-								<th style={{ width: '10em' }}>{i18n.lineItems.unitPrice}</th>
-								<th style={{ width: '10em' }}>{i18n.lineItems.amount}</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
+					<Table>
+						<TableHead>
+							<TableRow>
+								<TableCell>{i18n.lineItems.itemNo}</TableCell>
+								<TableCell>{i18n.lineItems.title}</TableCell>
+								<TableCell style={{ width: '10em' }}>{i18n.lineItems.quantity}</TableCell>
+								<TableCell style={{ width: '10em' }}>{i18n.lineItems.unitPrice}</TableCell>
+								<TableCell style={{ width: '10em' }}>{i18n.lineItems.amount}</TableCell>
+								<TableCell></TableCell>
+							</TableRow>
+						</TableHead>
+						<TableBody>
 							{lineItems.map((item, index) => (
-								<tr key={index}>
-									<td>{index + 1}</td>
-									<td>{item.title}</td>
-									<td>{item.quantity}</td>
-									<td>{item.unitPrice.toFixed(2)}</td>
-									<td>{(item.quantity * item.unitPrice).toFixed(2)}</td>
-									<td>
-										<button onClick={() => removeLineItem(index)}>➖</button>
-									</td>
-								</tr>
+								<TableRow key={index}>
+									<TableCell>{index + 1}</TableCell>
+									<TableCell>{item.title}</TableCell>
+									<TableCell>{item.quantity}</TableCell>
+									<TableCell>{item.unitPrice.toFixed(2)}</TableCell>
+									<TableCell>{(item.quantity * item.unitPrice).toFixed(2)}</TableCell>
+									<TableCell>
+										<Fab onClick={() => removeLineItem(index)} size="small">
+											<RemoveCircle />
+										</Fab>
+									</TableCell>
+								</TableRow>
 							))}
-							<tr>
-								<td></td>
-								<td>
-									<input
-										type="text"
-										id="title"
-										ref={titleRef}
-										onChange={onInputChange}
-										style={{ width: 'calc(100% - 1em)' }}
-									/>
-								</td>
-								<td>
-									<input
-										type="number"
-										id="quantity"
-										ref={quantityRef}
-										onChange={onInputChange}
-										style={{ width: 'calc(100% - 1em)' }}
-									/>
-								</td>
-								<td>
-									<input
-										type="number"
-										id="unitPrice"
-										ref={unitPriceRef}
-										onChange={onInputChange}
-										style={{ width: 'calc(100% - 1em)' }}
-									/>
-								</td>
-								<td></td>
-								<td>
-									<button onClick={addLineItem} disabled={!dataComplete}>
-										➕
-									</button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+							<TableRow>
+								<TableCell></TableCell>
+								<TableCell>
+									<TextField onChange={onInputChange} inputRef={titleRef} />
+								</TableCell>
+								<TableCell>
+									<TextField onChange={onInputChange} inputRef={quantityRef} type="number" />
+								</TableCell>
+								<TableCell>
+									<TextField onChange={onInputChange} inputRef={unitPriceRef} type="number" />
+								</TableCell>
+								<TableCell></TableCell>
+								<TableCell>
+									<Fab onClick={addLineItem} size="small" disabled={!dataComplete}>
+										<AddCircle />
+									</Fab>
+								</TableCell>
+							</TableRow>
+						</TableBody>
+					</Table>
 				</form>
 			</div>
 		</>
