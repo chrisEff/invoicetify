@@ -1,7 +1,7 @@
 {
 	"name": "invoicetify",
 	"productName": "invoicetify",
-	"version": "1.0.0",
+	"version": "1.0.0-alpha.1",
 	"description": "My Electron application description",
 	"main": ".webpack/main",
 	"keywords": [],
@@ -15,7 +15,7 @@
 		"start": "electron-forge start",
 		"package": "electron-forge package",
 		"make": "electron-forge make",
-		"publish": "electron-forge publish",
+		"publish-app": "electron-forge publish",
 		"lint": "echo \"No linting configured\""
 	},
 	"dependencies": {
@@ -42,6 +42,7 @@
 		"@electron-forge/plugin-auto-unpack-natives": "^7.6.0",
 		"@electron-forge/plugin-fuses": "^7.6.0",
 		"@electron-forge/plugin-webpack": "^7.6.0",
+		"@electron-forge/publisher-github": "^7.6.0",
 		"@electron/fuses": "^1.8.0",
 		"@eslint/js": "^9.18.0",
 		"@types/dot-object": "^2.1.6",
