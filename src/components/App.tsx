@@ -53,13 +53,7 @@ const App = () => {
 
 	useEffect(() => {
 		if (settings) {
-			settings.language !== null && window.electronAPI.storeSet('settings.language', settings.language)
-			settings.fontSize !== null && window.electronAPI.storeSet('settings.fontSize', settings.fontSize)
-			settings.senderAddress !== null && window.electronAPI.storeSet('settings.senderAddress', settings.senderAddress)
-			settings.introductoryText !== null &&
-				window.electronAPI.storeSet('settings.introductoryText', settings.introductoryText)
-			settings.closingText !== null && window.electronAPI.storeSet('settings.closingText', settings.closingText)
-			settings.footer !== null && window.electronAPI.storeSet('settings.footer', settings.footer)
+			window.electronAPI.storeSet('settings', settings)
 		}
 	}, [settings])
 
