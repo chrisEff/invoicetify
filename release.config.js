@@ -11,5 +11,11 @@ export default {
 		'@semantic-release/changelog',
 		['@semantic-release/npm', { npmPublish: false }],
 		'@semantic-release/git',
+		[
+			'@semantic-release/exec',
+			{
+				publishCmd: 'yarn make && yarn publish-app',
+			},
+		],
 	],
 }

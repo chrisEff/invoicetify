@@ -47,6 +47,7 @@
 		"@electron/fuses": "^1.8.0",
 		"@eslint/js": "^9.18.0",
 		"@semantic-release/changelog": "^6.0.3",
+		"@semantic-release/exec": "^6.0.3",
 		"@semantic-release/git": "^10.0.1",
 		"@types/dot-object": "^2.1.6",
 		"@types/react": "^19.0.2",
