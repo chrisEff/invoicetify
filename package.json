@@ -5,6 +5,7 @@
 	"description": "My Electron application description",
 	"main": ".webpack/main",
 	"keywords": [],
+	"private": true,
 	"author": {
 		"name": "Christian Frenzl",
 		"email": "chriseff@users.noreply.github.com"
@@ -45,6 +46,8 @@
 		"@electron-forge/publisher-github": "^7.6.0",
 		"@electron/fuses": "^1.8.0",
 		"@eslint/js": "^9.18.0",
+		"@semantic-release/changelog": "^6.0.3",
+		"@semantic-release/git": "^10.0.1",
 		"@types/dot-object": "^2.1.6",
 		"@types/react": "^19.0.2",
 		"@types/react-dom": "^19.0.2",
@@ -60,6 +63,7 @@
 		"node-loader": "^2.1.0",
 		"prettier": "^3.4.2",
 		"prop-types": "^15.8.1",
+		"semantic-release": "^24.2.1",
 		"style-loader": "^4.0.0",
 		"ts-loader": "^9.5.2",
 		"typescript": "^5.7.3",

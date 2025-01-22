@@ -12,11 +12,16 @@ jobs:
       - name: install dependencies
         shell: bash
         run: yarn --network-timeout 300000
+      - name: semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: yarn semantic-release
       - name: make
         shell: bash
         run: yarn make
       - name: publish
         env:
-          GITHUB_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: yarn publish-app
