@@ -9,6 +9,11 @@ jobs:
   publish-windows:
     runs-on: windows-latest
     steps:
+      - name: Fail if branch is not alpha
+        if: github.event_name == 'workflow_dispatch' && github.ref != 'refs/heads/alpha'
+        run: |
+          echo "Since app is in early development, we're only releasing on alpha branch until further notice."
+          exit 1
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
