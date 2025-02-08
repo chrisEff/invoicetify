@@ -39,10 +39,11 @@
   "settings": {
     "header": "Settings",
     "language": "Language",
+    "darkMode": "Dark Mode",
     "fontSize": "Font Size",
     "senderAddress": "Sender Address",
-    "introductoryText": "Introductory text",
-    "closingText": "Closing text",
+    "introductoryText": "Introductory Text",
+    "closingText": "Closing Text",
     "add": "Add",
     "remove": "Remove"
   }

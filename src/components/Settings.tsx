@@ -6,37 +6,30 @@ import {
 	FormControl,
 	FormControlLabel,
 	FormLabel,
+	Modal,
 	Radio,
 	RadioGroup,
+	Switch,
 	TextField,
 	Tooltip,
 	Typography,
 } from '@mui/material'
 
+import { useTheme } from '../context/ThemeContext'
 import { useTranslations } from '../context/TranslationsContext'
 import type { Settings } from '../types'
 
 const styles: { [key: string]: CSSProperties } = {
-	dialog: {
-		backgroundColor: 'rgba(0,0,0, 0.7)',
-		border: 'none',
-		display: 'flex',
-		padding: 0,
-		position: 'fixed',
-		top: 0,
-		left: 0,
-		width: '100%',
-		height: '100%',
-		zIndex: 9999,
-	},
 	dialogContent: {
-		backgroundColor: 'white',
-		flexGrow: 1,
+		backgroundColor: 'background.paper',
 		margin: '60px 80px',
 		padding: '20px 40px 20px 20px',
 		position: 'relative',
+		height: 'calc(100% - 120px)',
 	},
 	dialogContentScroll: {
+		display: 'flex',
+		flexDirection: 'column',
 		height: '100%',
 		overflow: 'auto',
 	},
@@ -58,11 +51,18 @@ const Settings = ({ settings, setSettings, setShowSettings }: SettingsProps) => 
 	const footerRef = useRef(null)
 
 	const { setLanguage, translations: i18n } = useTranslations()
+	const { darkMode, setDarkMode } = useTheme()
 
 	const updateLanguage = (e: ChangeEvent<HTMLInputElement>) => {
 		setLanguage(e.target.value)
 		setSettings(existing => ({ ...existing, language: e.target.value }))
 	}
+
+	const updateDarkMode = (e: ChangeEvent<HTMLInputElement>) => {
+		setDarkMode(e.target.checked)
+		setSettings(existing => ({ ...existing, darkMode: e.target.checked }))
+	}
+
 	const updateFontSize = (e: ChangeEvent<HTMLInputElement>) =>
 		setSettings(existing => ({ ...existing, fontSize: parseInt(e.target.value) }))
 
@@ -88,93 +88,95 @@ const Settings = ({ settings, setSettings, setShowSettings }: SettingsProps) => 
 	}
 
 	return (
-		<dialog open style={styles.dialog}>
-			<div style={styles.dialogContent}>
-				<div style={styles.dialogContentScroll}>
-					<Box sx={{ display: 'flex', flexDirection: 'column' }}>
-						<Close style={styles.closeButton} onClick={() => setShowSettings(false)} />
-						<Typography variant="h2">{i18n.settings.header}</Typography>
-						<FormControl margin="dense">
-							<FormLabel>{i18n.settings.language}</FormLabel>
-							<RadioGroup value={settings.language} onChange={updateLanguage}>
-								<FormControlLabel value="en" control={<Radio />} label="🇬🇧" />
-								<FormControlLabel value="de" control={<Radio />} label="🇩🇪" />
-							</RadioGroup>
-						</FormControl>
-						<TextField
-							label={i18n.settings.fontSize}
-							defaultValue={settings.fontSize}
-							onChange={updateFontSize}
-							margin="normal"
-						/>
-						<TextField
-							label={i18n.settings.senderAddress}
-							defaultValue={settings.senderAddress}
-							onChange={updateSenderAddress}
-							fullWidth
-							margin="normal"
-						/>
-						<TextField
-							label={i18n.settings.introductoryText}
-							defaultValue={settings.introductoryText}
-							onChange={updateIntroductoryText}
-							fullWidth
-							multiline
-							rows={5}
-							margin="normal"
-						/>
-						<TextField
-							label={i18n.settings.closingText}
-							defaultValue={settings.closingText}
-							onChange={updateClosingText}
-							fullWidth
-							multiline
-							rows={5}
-							margin="normal"
-						/>
-						<br />
-						<FormLabel>Footer:</FormLabel>
-						<div
-							style={{
-								display: 'flex',
-								flexDirection: 'row',
-							}}
-						>
-							{!settings.footer.length && (
-								<>
-									<div style={{ color: 'silver', padding: 5 }}>
-										<pre>
-											No footer
-											<br />
-											sections
-											<br />
-											added yet.
-										</pre>
-									</div>
-								</>
-							)}
-							{settings.footer.map((item, index) => (
-								<div key={index} style={{ display: 'flex', flexDirection: 'column', padding: 5 }}>
-									<pre style={{ flexGrow: 1 }}>{item}</pre>
-									<Tooltip title={i18n.settings.remove}>
-										<RemoveCircle onClick={() => removeFooterSection(index)} />
-									</Tooltip>
-								</div>
-							))}
-						</div>
-						{settings.footer.length < 5 && (
+		<Modal open>
+			<Box sx={styles.dialogContent}>
+				<Close style={styles.closeButton} onClick={() => setShowSettings(false)} />
+				<Box sx={styles.dialogContentScroll}>
+					<Typography variant="h2">{i18n.settings.header}</Typography>
+					<FormControl margin="dense">
+						<FormLabel>{i18n.settings.language}</FormLabel>
+						<RadioGroup value={settings.language} onChange={updateLanguage}>
+							<FormControlLabel value="en" control={<Radio />} label="🇬🇧" />
+							<FormControlLabel value="de" control={<Radio />} label="🇩🇪" />
+						</RadioGroup>
+					</FormControl>
+					<FormControl margin="dense">
+						<FormLabel>{i18n.settings.darkMode}</FormLabel>
+						<Switch checked={darkMode} onChange={updateDarkMode} />
+					</FormControl>
+					<TextField
+						label={i18n.settings.fontSize}
+						defaultValue={settings.fontSize}
+						onChange={updateFontSize}
+						margin="normal"
+					/>
+					<TextField
+						label={i18n.settings.senderAddress}
+						defaultValue={settings.senderAddress}
+						onChange={updateSenderAddress}
+						fullWidth
+						margin="normal"
+					/>
+					<TextField
+						label={i18n.settings.introductoryText}
+						defaultValue={settings.introductoryText}
+						onChange={updateIntroductoryText}
+						fullWidth
+						multiline
+						rows={5}
+						margin="normal"
+					/>
+					<TextField
+						label={i18n.settings.closingText}
+						defaultValue={settings.closingText}
+						onChange={updateClosingText}
+						fullWidth
+						multiline
+						rows={5}
+						margin="normal"
+					/>
+					<br />
+					<FormLabel>Footer:</FormLabel>
+					<div
+						style={{
+							display: 'flex',
+							flexDirection: 'row',
+						}}
+					>
+						{!settings.footer.length && (
 							<>
-								<TextField inputRef={footerRef} multiline rows={4} />
-								<br />
-								<Tooltip title={i18n.settings.add}>
-									<AddCircle onClick={addFooterSection} />
-								</Tooltip>
+								<div style={{ color: 'silver', padding: 5 }}>
+									<pre>
+										No footer
+										<br />
+										sections
+										<br />
+										added yet.
+									</pre>
+								</div>
 							</>
 						)}
-					</Box>
-				</div>
-			</div>
-		</dialog>
+						{settings.footer.map((item, index) => (
+							<div key={index} style={{ display: 'flex', flexDirection: 'column', padding: 5 }}>
+								<pre style={{ flexGrow: 1 }}>{item}</pre>
+								<Tooltip title={i18n.settings.remove}>
+									<RemoveCircle onClick={() => removeFooterSection(index)} />
+								</Tooltip>
+							</div>
+						))}
+					</div>
+					{settings.footer.length < 5 && (
+						<>
+							<TextField inputRef={footerRef} multiline rows={4} />
+							<br />
+							<Tooltip title={i18n.settings.add}>
+								<AddCircle onClick={addFooterSection} />
+							</Tooltip>
+						</>
+					)}
+				</Box>
+			</Box>
+		</Modal>
 	)
 }
 

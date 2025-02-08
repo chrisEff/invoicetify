@@ -13,6 +13,7 @@ const defaults = {
 	renderer: {
 		settings: {
 			language: 'en',
+			darkMode: true,
 			fontSize: 12,
 			senderAddress: '',
 			introductoryText: '',

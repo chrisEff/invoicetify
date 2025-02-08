@@ -39,6 +39,7 @@
   "settings": {
     "header": "Einstellungen",
     "language": "Sprache",
+    "darkMode": "Dunkelmodus",
     "fontSize": "Schriftgröße",
     "senderAddress": "Absenderadresse",
     "introductoryText": "Einleitungstext",
