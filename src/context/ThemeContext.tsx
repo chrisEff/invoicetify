@@ -1,6 +1,6 @@
 import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react'
 
-import { createTheme, CssBaseline, ThemeProvider as MaterialThemeProvider } from '@mui/material'
+import { createTheme, CssBaseline, GlobalStyles, ThemeProvider as MaterialThemeProvider } from '@mui/material'
 
 interface ThemeContextInterface {
 	darkMode: boolean
@@ -50,6 +50,22 @@ export const ThemeProvider = ({ children }: PropsWithChildren) => {
 				fontSize: '1rem',
 			},
 		},
+		components: {
+			MuiPaper: {
+				styleOverrides: {
+					root: {
+						padding: '2rem',
+					},
+				},
+			},
+			MuiTabs: {
+				styleOverrides: {
+					root: {
+						marginBottom: '1rem',
+					},
+				},
+			},
+		},
 		palette: {
 			mode: darkMode ? 'dark' : 'light',
 		},
@@ -57,6 +73,16 @@ export const ThemeProvider = ({ children }: PropsWithChildren) => {
 
 	return (
 		<ThemeContext.Provider value={{ darkMode, setDarkMode }}>
+			<GlobalStyles
+				styles={() => ({
+					body: {
+						padding: '2rem',
+					},
+					'h1, h2, h3, h4, h5, h6, label, div[role=tooltip], th': {
+						userSelect: 'none',
+					},
+				})}
+			/>
 			<MaterialThemeProvider theme={theme}>
 				<CssBaseline />
 				{children}

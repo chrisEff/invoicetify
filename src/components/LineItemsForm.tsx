@@ -1,7 +1,7 @@
 import React, { FormEvent, useRef, useState } from 'react'
 
 import { AddCircle, RemoveCircle } from '@mui/icons-material'
-import { Fab, Table, TableBody, TableCell, TableHead, TableRow, TextField } from '@mui/material'
+import { Box, Fab, Table, TableBody, TableCell, TableHead, TableRow, TextField } from '@mui/material'
 
 import { useTranslations } from '../context/TranslationsContext'
 import type { LineItem } from '../types'
@@ -48,7 +48,7 @@ const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFormProps)
 
 	return (
 		<>
-			<div style={{ display: 'flex', flexDirection: 'column' }}>
+			<Box sx={{ display: 'flex', flexDirection: 'column' }}>
 				<form
 					onSubmit={(e: FormEvent<HTMLFormElement>) => {
 						e.preventDefault()
@@ -60,9 +60,9 @@ const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFormProps)
 							<TableRow>
 								<TableCell>{i18n.lineItems.itemNo}</TableCell>
 								<TableCell>{i18n.lineItems.title}</TableCell>
-								<TableCell style={{ width: '10em' }}>{i18n.lineItems.quantity}</TableCell>
-								<TableCell style={{ width: '10em' }}>{i18n.lineItems.unitPrice}</TableCell>
-								<TableCell style={{ width: '10em' }}>{i18n.lineItems.amount}</TableCell>
+								<TableCell sx={{ width: '10em' }}>{i18n.lineItems.quantity}</TableCell>
+								<TableCell sx={{ width: '10em' }}>{i18n.lineItems.unitPrice}</TableCell>
+								<TableCell sx={{ width: '10em' }}>{i18n.lineItems.amount}</TableCell>
 								<TableCell></TableCell>
 							</TableRow>
 						</TableHead>
@@ -84,7 +84,7 @@ const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFormProps)
 							<TableRow>
 								<TableCell></TableCell>
 								<TableCell>
-									<TextField onChange={onInputChange} inputRef={titleRef} />
+									<TextField sx={{ width: '100%' }} onChange={onInputChange} inputRef={titleRef} />
 								</TableCell>
 								<TableCell>
 									<TextField onChange={onInputChange} inputRef={quantityRef} type="number" />
@@ -102,7 +102,7 @@ const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFormProps)
 						</TableBody>
 					</Table>
 				</form>
-			</div>
+			</Box>
 		</>
 	)
 }

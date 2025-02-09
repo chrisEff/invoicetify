@@ -90,7 +90,7 @@ const Settings = ({ settings, setSettings, setShowSettings }: SettingsProps) => 
 	return (
 		<Modal open>
 			<Box sx={styles.dialogContent}>
-				<Close style={styles.closeButton} onClick={() => setShowSettings(false)} />
+				<Close sx={styles.closeButton} onClick={() => setShowSettings(false)} />
 				<Box sx={styles.dialogContentScroll}>
 					<Typography variant="h2">{i18n.settings.header}</Typography>
 					<FormControl margin="dense">
@@ -137,15 +137,15 @@ const Settings = ({ settings, setSettings, setShowSettings }: SettingsProps) => 
 					/>
 					<br />
 					<FormLabel>Footer:</FormLabel>
-					<div
-						style={{
+					<Box
+						sx={{
 							display: 'flex',
 							flexDirection: 'row',
 						}}
 					>
 						{!settings.footer.length && (
 							<>
-								<div style={{ color: 'silver', padding: 5 }}>
+								<Box sx={{ color: 'silver', padding: 5 }}>
 									<pre>
 										No footer
 										<br />
@@ -153,18 +153,18 @@ const Settings = ({ settings, setSettings, setShowSettings }: SettingsProps) => 
 										<br />
 										added yet.
 									</pre>
-								</div>
+								</Box>
 							</>
 						)}
 						{settings.footer.map((item, index) => (
-							<div key={index} style={{ display: 'flex', flexDirection: 'column', padding: 5 }}>
-								<pre style={{ flexGrow: 1 }}>{item}</pre>
+							<Box key={index} sx={{ display: 'flex', flexDirection: 'column', padding: 5 }}>
+								<Box sx={{ flexGrow: 1, whiteSpace: 'pre' }}>{item}</Box>
 								<Tooltip title={i18n.settings.remove}>
 									<RemoveCircle onClick={() => removeFooterSection(index)} />
 								</Tooltip>
-							</div>
+							</Box>
 						))}
-					</div>
+					</Box>
 					{settings.footer.length < 5 && (
 						<>
 							<TextField inputRef={footerRef} multiline rows={4} />

@@ -5,7 +5,7 @@ import {
 	PictureAsPdfOutlined as PictureAsPdfOutlinedIcon,
 	Settings as SettingsIcon,
 } from '@mui/icons-material'
-import { Button, Tab, Tabs, Tooltip, Typography } from '@mui/material'
+import { Box, Button, Paper, Tab, Tabs, Tooltip, Typography } from '@mui/material'
 import { PDFDownloadLink } from '@react-pdf/renderer'
 
 import { TranslationsProvider, useTranslations } from '../context/TranslationsContext'
@@ -95,14 +95,14 @@ const App = () => {
 	return (
 		<>
 			{showSettings && <SettingsForm {...{ settings, setSettings, setShowSettings }} />}
-			<div style={{ position: 'fixed', top: '10px', right: '10px' }}>
+			<Box sx={{ position: 'fixed', top: '10px', right: '10px' }}>
 				{devMode && (
 					<Tooltip title="Auto-fill with dummy data">
 						<Button onClick={fillDummyData}>
 							<AutoAwesomeIcon />
 						</Button>
 					</Tooltip>
-				)}{' '}
+				)}
 				{settings && (
 					<PDFDownloadLink
 						document={
@@ -125,13 +125,13 @@ const App = () => {
 							)
 						}
 					</PDFDownloadLink>
-				)}{' '}
+				)}
 				<Tooltip title={i18n.settings.header}>
 					<Button onClick={() => setShowSettings(true)}>
 						<SettingsIcon />
 					</Button>
 				</Tooltip>
-			</div>
+			</Box>
 			<Typography variant="h1">{i18n.invoice}</Typography>
 
 			<Tabs value={tab} onChange={(e, value) => setTab(value)}>
@@ -140,17 +140,19 @@ const App = () => {
 				<Tab label={i18n.tabs.lineItems} value="lineItems" />
 			</Tabs>
 			<main>
-				{(() => {
-					switch (tab) {
-						case 'details':
-							return <DetailsForm {...{ details, setDetails }} />
-						case 'lineItems':
-							return <LineItemsForm {...{ lineItems, setLineItems }} />
-						case 'recipient':
-						default:
-							return <RecipientForm {...{ recipient, setRecipient }} />
-					}
-				})()}
+				<Paper elevation={8}>
+					{(() => {
+						switch (tab) {
+							case 'details':
+								return <DetailsForm {...{ details, setDetails }} />
+							case 'lineItems':
+								return <LineItemsForm {...{ lineItems, setLineItems }} />
+							case 'recipient':
+							default:
+								return <RecipientForm {...{ recipient, setRecipient }} />
+						}
+					})()}
+				</Paper>
 			</main>
 		</>
 	)
