@@ -11,6 +11,7 @@ const defaults = {
 		},
 	},
 	renderer: {
+		devMode: false,
 		settings: {
 			language: 'en',
 			darkMode: true,

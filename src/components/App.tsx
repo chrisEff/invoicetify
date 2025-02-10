@@ -19,7 +19,7 @@ import SettingsForm from './Settings'
 const App = () => {
 	const { translations: i18n } = useTranslations()
 
-	const devMode = false
+	const [devMode, setDevMode] = useState<boolean>(false)
 	const [tab, setTab] = useState<string>('recipient')
 	const [showSettings, setShowSettings] = useState<boolean>(false)
 	const [settings, setSettings] = useState<Settings>(null)
@@ -43,6 +43,8 @@ const App = () => {
 	async function fetchSettings() {
 		const fetchedSettings = (await window.electronAPI.storeGet('settings')) as Settings
 		setSettings(fetchedSettings)
+		const fetchedDevMode = (await window.electronAPI.storeGet('devMode')) as boolean
+		setDevMode(fetchedDevMode)
 	}
 
 	useEffect(() => {
@@ -92,6 +94,13 @@ const App = () => {
 		])
 	}
 
+	const handleH1Click = () => {
+		if (recipient.firstName === 'dev' && recipient.lastName === 'admin') {
+			window.electronAPI.storeSet('devMode', !devMode)
+			setDevMode(!devMode)
+		}
+	}
+
 	return (
 		<>
 			{showSettings && <SettingsForm {...{ settings, setSettings, setShowSettings }} />}
@@ -132,7 +141,9 @@ const App = () => {
 					</Button>
 				</Tooltip>
 			</Box>
-			<Typography variant="h1">{i18n.invoice}</Typography>
+			<Typography variant="h1" onClick={handleH1Click}>
+				{i18n.invoice}
+			</Typography>
 
 			<Tabs value={tab} onChange={(e, value) => setTab(value)}>
 				<Tab label={i18n.tabs.recipient} value="recipient" />
