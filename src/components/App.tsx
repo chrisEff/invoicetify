@@ -121,7 +121,6 @@ const App = () => {
 						}
 						fileName={i18n.invoice + '.pdf'}
 					>
-						{/* @ts-expect-error PDFDownloadLink actually supports passing a function in the `children` prop */}
 						{({ loading }) =>
 							loading ? (
 								''
