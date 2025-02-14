@@ -38,6 +38,11 @@
   },
   "settings": {
     "header": "Einstellungen",
+    "tabs": {
+      "general": "Allgemein",
+      "layout": "Layout",
+      "content": "Inhalt"
+    },
     "language": "Sprache",
     "darkMode": "Dunkelmodus",
     "fontSize": "Schriftgröße",

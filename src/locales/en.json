@@ -38,6 +38,11 @@
   },
   "settings": {
     "header": "Settings",
+    "tabs": {
+      "general": "General",
+      "layout": "Layout",
+      "content": "Content"
+    },
     "language": "Language",
     "darkMode": "Dark Mode",
     "fontSize": "Font Size",

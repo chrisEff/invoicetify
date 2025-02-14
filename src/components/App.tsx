@@ -14,7 +14,7 @@ import DetailsForm from './DetailsForm'
 import LineItemsForm from './LineItemsForm'
 import Pdf from './Pdf'
 import RecipientForm from './RecipientForm'
-import SettingsForm from './Settings'
+import SettingsForm from './Settings/Settings'
 
 const App = () => {
 	const { translations: i18n } = useTranslations()
