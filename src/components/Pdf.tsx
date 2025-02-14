@@ -25,8 +25,27 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 			paddingTop: settings.padding.top + 'cm',
 			paddingBottom: settings.padding.bottom + 'cm',
 		},
+		addresses: {
+			marginTop: '3.5cm',
+			minHeight: '3cm',
+		},
+		senderAddress: {
+			fontSize: '6pt',
+			marginBottom: '0.5cm',
+			textDecoration: 'underline',
+		},
+		details: {
+			marginLeft: '12.5cm',
+		},
+		subject: {
+			fontFamily: 'Helvetica-Bold',
+			marginTop: '1cm',
+		},
 		table: {
 			marginTop: '1cm',
+		},
+		tableHeader: {
+			fontFamily: 'Helvetica-Bold',
 		},
 		tableRow: {
 			display: 'flex',
@@ -48,17 +67,31 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 			textAlign: 'right',
 			width: '100px',
 		},
+		total: {
+			fontFamily: 'Helvetica-Bold',
+		},
+		footer: {
+			borderTop: '1px solid black',
+			display: 'flex',
+			flexDirection: 'row',
+			fontSize: '9pt',
+			position: 'absolute',
+			bottom: '1.5cm',
+			width: '17cm',
+		},
+		footerSection: {
+			minWidth: '3cm',
+			paddingRight: '2mm',
+		},
 	}
 
 	const total = lineItems.reduce((total, item) => total + item.quantity * item.unitPrice, 0)
 
 	return (
 		<Document>
-			<Page size="A4" style={{ ...styles.Page }}>
-				<View style={{ marginTop: '3.5cm', minHeight: '3cm' }}>
-					<Text style={{ fontSize: '6pt', marginBottom: '0.5cm', textDecoration: 'underline' }}>
-						{settings.senderAddress}
-					</Text>
+			<Page size="A4" style={styles.Page}>
+				<View style={styles.addresses}>
+					<Text style={styles.senderAddress}>{settings.senderAddress}</Text>
 					<Text>
 						{recipient.firstName} {recipient.lastName}
 					</Text>
@@ -68,7 +101,7 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 					</Text>
 				</View>
 
-				<View style={{ marginLeft: '12.5cm' }}>
+				<View style={styles.details}>
 					<Text>
 						{i18n.details.date}: {details.date}
 					</Text>
@@ -77,33 +110,31 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 					</Text>
 				</View>
 
-				<View style={{ marginTop: '1cm' }}>
-					<Text style={{ fontFamily: 'Helvetica-Bold' }}>
-						{i18n.invoice} {details.invoiceNo}
+				<Text style={styles.subject}>
+					{i18n.invoice} {details.invoiceNo}
+				</Text>
+				{details.servicePeriodStart && (
+					<Text>
+						{i18n.details.servicePeriod}: {details.servicePeriodStart}
+						{details.servicePeriodEnd && <> - {details.servicePeriodEnd}</>}
 					</Text>
-					{details.servicePeriodStart && (
+				)}
+				{recipient.salutation && (
+					<>
+						<Text> </Text>
 						<Text>
-							{i18n.details.servicePeriod}: {details.servicePeriodStart}
-							{details.servicePeriodEnd && <> - {details.servicePeriodEnd}</>}
+							{recipient.salutation === 'dearSirOrMadam'
+								? i18n.salutations.dearSirOrMadam
+								: i18n.salutations[recipient.salutation] + ' ' + recipient.lastName}
+							,
 						</Text>
-					)}
-					{recipient.salutation && (
-						<>
-							<Text> </Text>
-							<Text>
-								{recipient.salutation === 'dearSirOrMadam'
-									? i18n.salutations.dearSirOrMadam
-									: i18n.salutations[recipient.salutation] + ' ' + recipient.lastName}
-								,
-							</Text>
-						</>
-					)}
-					<Text> </Text>
-					<Text>{settings.introductoryText}</Text>
-				</View>
+					</>
+				)}
+				<Text> </Text>
+				<Text>{settings.introductoryText}</Text>
 
 				<View style={styles.table}>
-					<View style={{ ...styles.tableRow, fontFamily: 'Helvetica-Bold' }}>
+					<View style={{ ...styles.tableRow, ...styles.tableHeader }}>
 						<View style={styles.itemNo}>
 							<Text>{i18n.lineItems.itemNo}</Text>
 						</View>
@@ -142,7 +173,7 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 					<View style={styles.tableRow}>
 						<Text> </Text>
 					</View>
-					<View style={{ ...styles.tableRow, fontFamily: 'Helvetica-Bold' }}>
+					<View style={{ ...styles.tableRow, ...styles.total }}>
 						<View style={styles.title}>
 							<Text> </Text>
 						</View>
@@ -170,19 +201,9 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 					<Text>Jonathan Doe</Text>
 				</View>
 
-				<View
-					style={{
-						borderTop: '1px solid black',
-						display: 'flex',
-						flexDirection: 'row',
-						fontSize: '9pt',
-						position: 'absolute',
-						bottom: '1.5cm',
-						width: '17cm',
-					}}
-				>
+				<View style={styles.footer}>
 					{settings.footer.map((item, index) => (
-						<View key={index} style={{ minWidth: '3cm', paddingRight: '2mm' }}>
+						<View key={index} style={styles.footerSection}>
 							<Text>{item}</Text>
 						</View>
 					))}
