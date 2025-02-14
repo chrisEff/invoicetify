@@ -32,22 +32,28 @@ export const ThemeProvider = ({ children }: PropsWithChildren) => {
 	const theme = createTheme({
 		typography: {
 			h1: {
-				fontSize: '3rem',
+				fontSize: '2.4rem',
+				fontWeight: 300,
 			},
 			h2: {
-				fontSize: '2.5rem',
+				fontSize: '2.1rem',
+				fontWeight: 300,
 			},
 			h3: {
-				fontSize: '2rem',
+				fontSize: '1.8rem',
+				fontWeight: 300,
 			},
 			h4: {
 				fontSize: '1.5rem',
+				fontWeight: 300,
 			},
 			h5: {
-				fontSize: '1.25rem',
+				fontSize: '1.2rem',
+				fontWeight: 300,
 			},
 			h6: {
-				fontSize: '1rem',
+				fontSize: '1.0rem',
+				fontWeight: 300,
 			},
 		},
 		components: {

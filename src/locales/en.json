@@ -41,6 +41,13 @@
     "language": "Language",
     "darkMode": "Dark Mode",
     "fontSize": "Font Size",
+    "padding": {
+      "title": "Page Margins",
+      "left": "Left",
+      "right": "Right",
+      "top": "Top",
+      "bottom": "Bottom"
+    },
     "senderAddress": "Sender Address",
     "introductoryText": "Introductory Text",
     "closingText": "Closing Text",

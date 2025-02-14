@@ -6,36 +6,6 @@ import { Style } from '@react-pdf/types/style'
 import { useTranslations } from '../context/TranslationsContext'
 import type { Details, LineItem, Recipient, Settings } from '../types'
 
-const styles: { [key: string]: Style } = {
-	Page: {
-		fontFamily: 'Helvetica',
-		padding: '2cm',
-	},
-	table: {
-		marginTop: '1cm',
-	},
-	tableRow: {
-		display: 'flex',
-		flexDirection: 'row',
-	},
-	itemNo: {
-		width: '50px',
-	},
-	title: {
-		flexGrow: 1,
-	},
-	quantity: {
-		width: '100px',
-	},
-	unitPrice: {
-		width: '100px',
-	},
-	amount: {
-		textAlign: 'right',
-		width: '100px',
-	},
-}
-
 interface PdfProps {
 	recipient: Recipient
 	details: Details
@@ -46,11 +16,45 @@ interface PdfProps {
 const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 	const { translations: i18n } = useTranslations()
 
+	const styles: { [key: string]: Style } = {
+		Page: {
+			fontFamily: 'Helvetica',
+			fontSize: settings.fontSize,
+			paddingLeft: settings.padding.left + 'cm',
+			paddingRight: settings.padding.right + 'cm',
+			paddingTop: settings.padding.top + 'cm',
+			paddingBottom: settings.padding.bottom + 'cm',
+		},
+		table: {
+			marginTop: '1cm',
+		},
+		tableRow: {
+			display: 'flex',
+			flexDirection: 'row',
+		},
+		itemNo: {
+			width: '50px',
+		},
+		title: {
+			flexGrow: 1,
+		},
+		quantity: {
+			width: '100px',
+		},
+		unitPrice: {
+			width: '100px',
+		},
+		amount: {
+			textAlign: 'right',
+			width: '100px',
+		},
+	}
+
 	const total = lineItems.reduce((total, item) => total + item.quantity * item.unitPrice, 0)
 
 	return (
 		<Document>
-			<Page size="A4" style={{ ...styles.Page, fontSize: settings.fontSize }}>
+			<Page size="A4" style={{ ...styles.Page }}>
 				<View style={{ marginTop: '3.5cm', minHeight: '3cm' }}>
 					<Text style={{ fontSize: '6pt', marginBottom: '0.5cm', textDecoration: 'underline' }}>
 						{settings.senderAddress}

@@ -26,6 +26,12 @@ export interface LineItem {
 export interface Settings {
 	language: string
 	fontSize: number
+	padding: {
+		left: number
+		right: number
+		top: number
+		bottom: number
+	}
 	senderAddress: string
 	introductoryText: string
 	closingText: string

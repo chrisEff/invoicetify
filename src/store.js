@@ -16,6 +16,12 @@ const defaults = {
 			language: 'en',
 			darkMode: true,
 			fontSize: 12,
+			padding: {
+				left: 2,
+				right: 2,
+				top: 2,
+				bottom: 2,
+			},
 			senderAddress: '',
 			introductoryText: '',
 			closingText: '',

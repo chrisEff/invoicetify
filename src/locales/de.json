@@ -41,6 +41,13 @@
     "language": "Sprache",
     "darkMode": "Dunkelmodus",
     "fontSize": "Schriftgröße",
+    "padding": {
+      "title": "Seitenränder",
+      "left": "Links",
+      "right": "Rechts",
+      "top": "Oben",
+      "bottom": "Unten"
+    },
     "senderAddress": "Absenderadresse",
     "introductoryText": "Einleitungstext",
     "closingText": "Schlusstext",
