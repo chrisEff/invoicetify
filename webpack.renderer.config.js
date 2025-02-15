@@ -5,6 +5,11 @@ rules.push({
 	use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
 })
 
+rules.push({
+	test: /\.ttf/,
+	type: 'asset/resource',
+})
+
 export default {
 	// Put your normal webpack config below here
 	resolve: {

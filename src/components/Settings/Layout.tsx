@@ -1,9 +1,11 @@
+import '../../fonts/fonts.css'
+
 import React, { ChangeEvent } from 'react'
 
-import { FormControl, FormLabel, TextField } from '@mui/material'
+import { FormControl, FormLabel, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 
 import { useTranslations } from '../../context/TranslationsContext'
-import type { Settings } from '../../types'
+import type { FontFamily, Settings } from '../../types'
 
 interface LayoutProps {
 	settings: Settings
@@ -13,6 +15,8 @@ interface LayoutProps {
 const Layout = ({ settings, setSettings }: LayoutProps) => {
 	const { translations: i18n } = useTranslations()
 
+	const updateFontFamily = (e: ChangeEvent<HTMLInputElement>) =>
+		setSettings(existing => ({ ...existing, fontFamily: e.target.value as FontFamily }))
 	const updateFontSize = (e: ChangeEvent<HTMLInputElement>) =>
 		setSettings(existing => ({ ...existing, fontSize: parseInt(e.target.value) }))
 
@@ -27,9 +31,34 @@ const Layout = ({ settings, setSettings }: LayoutProps) => {
 
 	return (
 		<>
+			<FormControl>
+				{/* Yes, we need the label twice here, otherwise it will look broken. (Possible bug in MUI?) */}
+				<InputLabel>{i18n.settings.fontFamily}</InputLabel>
+				<Select
+					label={i18n.settings.fontFamily}
+					variant={'outlined'}
+					value={settings.fontFamily}
+					onChange={updateFontFamily}
+				>
+					<MenuItem value={'OpenSans'} style={{ fontFamily: 'OpenSans' }}>
+						Open Sans
+					</MenuItem>
+					<MenuItem value={'Roboto'} style={{ fontFamily: 'Roboto' }}>
+						Roboto
+					</MenuItem>
+					<MenuItem value={'RobotoMono'} style={{ fontFamily: 'RobotoMono' }}>
+						Roboto Mono
+					</MenuItem>
+					<MenuItem value={'RobotoSerif'} style={{ fontFamily: 'RobotoSerif' }}>
+						Roboto Serif
+					</MenuItem>
+				</Select>
+			</FormControl>
 			<TextField
 				label={i18n.settings.fontSize}
 				defaultValue={settings.fontSize}
+				type="number"
+				slotProps={{ htmlInput: { min: 4, max: 20 } }}
 				onChange={updateFontSize}
 				margin="normal"
 			/>
@@ -39,7 +68,7 @@ const Layout = ({ settings, setSettings }: LayoutProps) => {
 					label={i18n.settings.padding.top}
 					defaultValue={settings.padding.top}
 					type="number"
-					slotProps={{ htmlInput: { step: '0.1' } }}
+					slotProps={{ htmlInput: { min: 0, max: 5, step: '0.1' } }}
 					onChange={updatePaddingTop}
 					margin="dense"
 				/>
@@ -47,7 +76,7 @@ const Layout = ({ settings, setSettings }: LayoutProps) => {
 					label={i18n.settings.padding.bottom}
 					defaultValue={settings.padding.bottom}
 					type="number"
-					slotProps={{ htmlInput: { step: '0.1' } }}
+					slotProps={{ htmlInput: { min: 0, max: 5, step: '0.1' } }}
 					onChange={updatePaddingBottom}
 					margin="dense"
 				/>
@@ -55,7 +84,7 @@ const Layout = ({ settings, setSettings }: LayoutProps) => {
 					label={i18n.settings.padding.left}
 					defaultValue={settings.padding.left}
 					type="number"
-					slotProps={{ htmlInput: { step: '0.1' } }}
+					slotProps={{ htmlInput: { min: 0, max: 5, step: '0.1' } }}
 					onChange={updatePaddingLeft}
 					margin="dense"
 				/>
@@ -63,7 +92,7 @@ const Layout = ({ settings, setSettings }: LayoutProps) => {
 					label={i18n.settings.padding.right}
 					defaultValue={settings.padding.right}
 					type="number"
-					slotProps={{ htmlInput: { step: '0.1' } }}
+					slotProps={{ htmlInput: { min: 0, max: 5, step: '0.1' } }}
 					onChange={updatePaddingRight}
 					margin="dense"
 				/>

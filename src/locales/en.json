@@ -46,6 +46,7 @@
     "language": "Language",
     "darkMode": "Dark Mode",
     "fontSize": "Font Size",
+    "fontFamily": "Typeface",
     "padding": {
       "title": "Page Margins",
       "left": "Left",

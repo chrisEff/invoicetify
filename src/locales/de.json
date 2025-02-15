@@ -46,6 +46,7 @@
     "language": "Sprache",
     "darkMode": "Dunkelmodus",
     "fontSize": "Schriftgröße",
+    "fontFamily": "Schriftart",
     "padding": {
       "title": "Seitenränder",
       "left": "Links",

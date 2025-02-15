@@ -1,9 +1,26 @@
 import React from 'react'
 
-import { Document, Page, Text, View } from '@react-pdf/renderer'
+import { Document, Font, Page, Text, View } from '@react-pdf/renderer'
+// eslint-disable-next-line import/no-unresolved
 import { Style } from '@react-pdf/types/style'
 
 import { useTranslations } from '../context/TranslationsContext'
+// @ts-expect-error font files are not recognized by typescript
+import OpenSansBold from '../fonts/OpenSans/OpenSans-Bold.ttf'
+// @ts-expect-error font files are not recognized by typescript
+import OpenSansRegular from '../fonts/OpenSans/OpenSans-Regular.ttf'
+// @ts-expect-error font files are not recognized by typescript
+import RobotoBold from '../fonts/Roboto/Roboto-Bold.ttf'
+// @ts-expect-error font files are not recognized by typescript
+import RobotoRegular from '../fonts/Roboto/Roboto-Regular.ttf'
+// @ts-expect-error font files are not recognized by typescript
+import RobotoMonoBold from '../fonts/RobotoMono/RobotoMono-Bold.ttf'
+// @ts-expect-error font files are not recognized by typescript
+import RobotoMonoRegular from '../fonts/RobotoMono/RobotoMono-Regular.ttf'
+// @ts-expect-error font files are not recognized by typescript
+import RobotoSerifBold from '../fonts/RobotoSerif/RobotoSerif-Bold.ttf'
+// @ts-expect-error font files are not recognized by typescript
+import RobotoSerifRegular from '../fonts/RobotoSerif/RobotoSerif-Regular.ttf'
 import type { Details, LineItem, Recipient, Settings } from '../types'
 
 interface PdfProps {
@@ -16,14 +33,67 @@ interface PdfProps {
 const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 	const { translations: i18n } = useTranslations()
 
+	Font.register({
+		family: 'OpenSans',
+		fonts: [
+			{
+				src: OpenSansRegular,
+				fontWeight: 400,
+			},
+			{
+				src: OpenSansBold,
+				fontWeight: 700,
+			},
+		],
+	})
+	Font.register({
+		family: 'Roboto',
+		fonts: [
+			{
+				src: RobotoRegular,
+				fontWeight: 400,
+			},
+			{
+				src: RobotoBold,
+				fontWeight: 700,
+			},
+		],
+	})
+	Font.register({
+		family: 'RobotoMono',
+		fonts: [
+			{
+				src: RobotoMonoRegular,
+				fontWeight: 400,
+			},
+			{
+				src: RobotoMonoBold,
+				fontWeight: 700,
+			},
+		],
+	})
+	Font.register({
+		family: 'RobotoSerif',
+		fonts: [
+			{
+				src: RobotoSerifRegular,
+				fontWeight: 400,
+			},
+			{
+				src: RobotoSerifBold,
+				fontWeight: 700,
+			},
+		],
+	})
+
 	const styles: { [key: string]: Style } = {
 		Page: {
-			fontFamily: 'Helvetica',
+			fontFamily: settings.fontFamily,
 			fontSize: settings.fontSize,
 			paddingLeft: settings.padding.left + 'cm',
 			paddingRight: settings.padding.right + 'cm',
 			paddingTop: settings.padding.top + 'cm',
-			paddingBottom: settings.padding.bottom + 'cm',
+			paddingBottom: settings.padding.bottom + 2 + 'cm', // add 2cm for footer
 		},
 		addresses: {
 			marginTop: '3.5cm',
@@ -38,14 +108,14 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 			marginLeft: '12.5cm',
 		},
 		subject: {
-			fontFamily: 'Helvetica-Bold',
+			fontWeight: 'bold',
 			marginTop: '1cm',
 		},
 		table: {
 			marginTop: '1cm',
 		},
 		tableHeader: {
-			fontFamily: 'Helvetica-Bold',
+			fontWeight: 'bold',
 		},
 		tableRow: {
 			display: 'flex',
@@ -68,7 +138,7 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 			width: '100px',
 		},
 		total: {
-			fontFamily: 'Helvetica-Bold',
+			fontWeight: 'bold',
 		},
 		footer: {
 			borderTop: '1px solid black',
@@ -201,7 +271,7 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 					<Text>Jonathan Doe</Text>
 				</View>
 
-				<View style={styles.footer}>
+				<View style={styles.footer} fixed>
 					{settings.footer.map((item, index) => (
 						<View key={index} style={styles.footerSection}>
 							<Text>{item}</Text>

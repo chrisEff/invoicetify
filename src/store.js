@@ -15,7 +15,8 @@ const defaults = {
 		settings: {
 			language: 'en',
 			darkMode: true,
-			fontSize: 12,
+			fontFamily: 'OpenSans',
+			fontSize: 10,
 			padding: {
 				left: 2,
 				right: 2,

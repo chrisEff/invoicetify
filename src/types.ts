@@ -23,8 +23,11 @@ export interface LineItem {
 	unitPrice: number
 }
 
+export type FontFamily = 'OpenSans' | 'Roboto' | 'RobotoMono' | 'RobotoSerif'
+
 export interface Settings {
 	language: string
+	fontFamily: FontFamily
 	fontSize: number
 	padding: {
 		left: number
