@@ -18,6 +18,7 @@ const styles: { [key: string]: CSSProperties } = {
 		height: 'calc(100% - 120px)',
 	},
 	dialogContentScroll: {
+		alignItems: 'flex-start',
 		display: 'flex',
 		flexDirection: 'column',
 		height: '100%',

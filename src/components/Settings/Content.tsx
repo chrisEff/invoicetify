@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useRef } from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 
 import { AddCircle, RemoveCircle } from '@mui/icons-material'
-import { Box, FormLabel, TextField, Tooltip } from '@mui/material'
+import { Box, Button, FormLabel, TextField, Tooltip } from '@mui/material'
 
 import { useTranslations } from '../../context/TranslationsContext'
 import type { Settings } from '../../types'
@@ -15,6 +15,28 @@ const Content = ({ settings, setSettings }: ContentProps) => {
 	const footerRef = useRef(null)
 
 	const { translations: i18n } = useTranslations()
+
+	const [leftImage, setLeftImage] = useState<string | null>(null)
+	const [rightImage, setRightImage] = useState<string | null>(null)
+
+	const loadImages = async () => {
+		setLeftImage(await window.electronAPI.getLeftImage())
+		setRightImage(await window.electronAPI.getRightImage())
+	}
+
+	useEffect(() => {
+		loadImages()
+	}, [])
+
+	const updateLeftImage = async () => {
+		await window.electronAPI.uploadLeftImage()
+		loadImages()
+	}
+
+	const updateRightImage = async () => {
+		await window.electronAPI.uploadRightImage()
+		loadImages()
+	}
 
 	const updateSenderAddress = (e: ChangeEvent<HTMLInputElement>) =>
 		setSettings(existing => ({ ...existing, senderAddress: e.target.value }))
@@ -35,6 +57,17 @@ const Content = ({ settings, setSettings }: ContentProps) => {
 
 	return (
 		<>
+			<FormLabel>{i18n.settings.letterhead}:</FormLabel>
+			<Box sx={{ display: 'flex' }}>
+				<Box sx={{ display: 'flex', flexDirection: 'column' }}>
+					<Button onClick={updateLeftImage}>{i18n.settings.chooseLeftImage}</Button>
+					{leftImage && <img src={`data:image/png;base64,${leftImage}`} style={{ height: '150px' }} />}
+				</Box>
+				<Box sx={{ display: 'flex', flexDirection: 'column' }}>
+					<Button onClick={updateRightImage}>{i18n.settings.chooseRightImage}</Button>
+					{rightImage && <img src={`data:image/png;base64,${rightImage}`} style={{ height: '150px' }} />}
+				</Box>
+			</Box>
 			<TextField
 				label={i18n.settings.senderAddress}
 				defaultValue={settings.senderAddress}

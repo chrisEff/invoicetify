@@ -54,6 +54,9 @@
       "top": "Oben",
       "bottom": "Unten"
     },
+    "letterhead": "Briefkopf",
+    "chooseLeftImage": "linkes Bild auswählen",
+    "chooseRightImage": "rechtes Bild auswählen",
     "senderAddress": "Absenderadresse",
     "introductoryText": "Einleitungstext",
     "closingText": "Schlusstext",

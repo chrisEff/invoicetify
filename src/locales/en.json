@@ -54,6 +54,9 @@
       "top": "Top",
       "bottom": "Bottom"
     },
+    "letterhead": "Letterhead",
+    "chooseLeftImage": "choose left image",
+    "chooseRightImage": "choose right image",
     "senderAddress": "Sender Address",
     "introductoryText": "Introductory Text",
     "closingText": "Closing Text",
