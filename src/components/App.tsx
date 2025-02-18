@@ -21,8 +21,9 @@ const App = () => {
 
 	const [devMode, setDevMode] = useState<boolean>(false)
 	const [tab, setTab] = useState<string>('recipient')
+	const [showPdfButton, setShowPdfButton] = useState<boolean>(true)
 	const [showSettings, setShowSettings] = useState<boolean>(false)
-	const [settings, setSettings] = useState<Settings>(null)
+	const [settings, _setSettings] = useState<Settings>(null)
 	const [recipient, setRecipient] = useState<Recipient>({
 		salutation: null,
 		firstName: '',
@@ -38,7 +39,25 @@ const App = () => {
 		servicePeriodStart: '',
 		servicePeriodEnd: '',
 	})
-	const [lineItems, setLineItems] = useState<Array<LineItem>>([])
+	const [lineItems, _setLineItems] = useState<Array<LineItem>>([])
+
+	// Workaround for a bug in react-pdf that causes the App to crash when an item is removed from an array
+	// see https://github.com/diegomura/react-pdf/issues/2978
+	const setLineItems = (cb: ((existing: Array<LineItem>) => Array<LineItem>) | Array<LineItem>) => {
+		_setLineItems(cb)
+		setShowPdfButton(false)
+	}
+
+	const setSettings = (cb: ((existing: Settings) => Settings) | Settings) => {
+		_setSettings(cb)
+		setShowPdfButton(false)
+	}
+
+	useEffect(() => {
+		setShowPdfButton(true)
+	}, [lineItems, settings])
+
+	// --- End of workaround ---
 
 	async function fetchSettings() {
 		const fetchedSettings = (await window.electronAPI.storeGet('settings')) as Settings
@@ -82,7 +101,7 @@ const App = () => {
 				unitPrice: 49.99,
 			},
 			{
-				title: 'Item 3',
+				title: 'Item 2',
 				quantity: 7,
 				unitPrice: 129.9,
 			},
@@ -112,7 +131,7 @@ const App = () => {
 						</Button>
 					</Tooltip>
 				)}
-				{settings && (
+				{settings && showPdfButton && (
 					<PDFDownloadLink
 						document={
 							<TranslationsProvider>
