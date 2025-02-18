@@ -21,13 +21,13 @@ const Layout = ({ settings, setSettings }: LayoutProps) => {
 		setSettings(existing => ({ ...existing, fontSize: parseInt(e.target.value) }))
 
 	const updatePaddingLeft = (e: ChangeEvent<HTMLInputElement>) =>
-		setSettings(existing => ({ ...existing, padding: { ...existing.padding, left: parseInt(e.target.value) } }))
+		setSettings(existing => ({ ...existing, padding: { ...existing.padding, left: parseFloat(e.target.value) } }))
 	const updatePaddingRight = (e: ChangeEvent<HTMLInputElement>) =>
-		setSettings(existing => ({ ...existing, padding: { ...existing.padding, right: parseInt(e.target.value) } }))
+		setSettings(existing => ({ ...existing, padding: { ...existing.padding, right: parseFloat(e.target.value) } }))
 	const updatePaddingTop = (e: ChangeEvent<HTMLInputElement>) =>
-		setSettings(existing => ({ ...existing, padding: { ...existing.padding, top: parseInt(e.target.value) } }))
+		setSettings(existing => ({ ...existing, padding: { ...existing.padding, top: parseFloat(e.target.value) } }))
 	const updatePaddingBottom = (e: ChangeEvent<HTMLInputElement>) =>
-		setSettings(existing => ({ ...existing, padding: { ...existing.padding, bottom: parseInt(e.target.value) } }))
+		setSettings(existing => ({ ...existing, padding: { ...existing.padding, bottom: parseFloat(e.target.value) } }))
 
 	return (
 		<>
