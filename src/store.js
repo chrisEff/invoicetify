@@ -24,6 +24,7 @@ const defaults = {
 				bottom: 2,
 			},
 			senderAddress: '',
+			contactDetails: '',
 			introductoryText: '',
 			closingText: '',
 			footer: [],

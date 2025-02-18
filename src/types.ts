@@ -36,6 +36,7 @@ export interface Settings {
 		bottom: number
 	}
 	senderAddress: string
+	contactDetails: string
 	introductoryText: string
 	closingText: string
 	footer: Array<string>

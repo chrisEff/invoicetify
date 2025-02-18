@@ -40,6 +40,8 @@ const Content = ({ settings, setSettings }: ContentProps) => {
 
 	const updateSenderAddress = (e: ChangeEvent<HTMLInputElement>) =>
 		setSettings(existing => ({ ...existing, senderAddress: e.target.value }))
+	const updateContactDetails = (e: ChangeEvent<HTMLInputElement>) =>
+		setSettings(existing => ({ ...existing, contactDetails: e.target.value }))
 	const updateIntroductoryText = (e: ChangeEvent<HTMLTextAreaElement>) =>
 		setSettings(existing => ({ ...existing, introductoryText: e.target.value }))
 	const updateClosingText = (e: ChangeEvent<HTMLTextAreaElement>) =>
@@ -73,6 +75,15 @@ const Content = ({ settings, setSettings }: ContentProps) => {
 				defaultValue={settings.senderAddress}
 				onChange={updateSenderAddress}
 				fullWidth
+				margin="normal"
+			/>
+			<TextField
+				label={i18n.settings.contactDetails}
+				defaultValue={settings.contactDetails}
+				onChange={updateContactDetails}
+				fullWidth
+				multiline
+				rows={5}
 				margin="normal"
 			/>
 			<TextField

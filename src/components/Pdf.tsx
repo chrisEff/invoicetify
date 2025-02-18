@@ -124,6 +124,8 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 			objectFit: 'scale-down',
 		},
 		addresses: {
+			display: 'flex',
+			flexDirection: 'row',
 			marginTop: '0.5cm',
 			minHeight: '3cm',
 		},
@@ -131,6 +133,12 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 			fontSize: '6pt',
 			marginBottom: '0.5cm',
 			textDecoration: 'underline',
+		},
+		contactDetails: {
+			alignItems: 'flex-end',
+			flexGrow: 1,
+			fontSize: settings.fontSize * 0.8,
+			textAlign: 'right',
 		},
 		details: {
 			marginLeft: '12.5cm',
@@ -148,6 +156,11 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 		tableRow: {
 			display: 'flex',
 			flexDirection: 'row',
+		},
+		tableRowOdd: {
+			display: 'flex',
+			flexDirection: 'row',
+			backgroundColor: 'lightgrey',
 		},
 		itemNo: {
 			width: '50px',
@@ -201,14 +214,19 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 					)}
 				</View>
 				<View style={styles.addresses}>
-					<Text style={styles.senderAddress}>{settings.senderAddress}</Text>
-					<Text>
-						{recipient.firstName} {recipient.lastName}
-					</Text>
-					<Text>{recipient.street}</Text>
-					<Text>
-						{recipient.zipcode} {recipient.city}
-					</Text>
+					<View>
+						<Text style={styles.senderAddress}>{settings.senderAddress}</Text>
+						<Text>
+							{recipient.firstName} {recipient.lastName}
+						</Text>
+						<Text>{recipient.street}</Text>
+						<Text>
+							{recipient.zipcode} {recipient.city}
+						</Text>
+					</View>
+					<View style={styles.contactDetails}>
+						<Text>{settings.contactDetails}</Text>
+					</View>
 				</View>
 
 				<View style={styles.details}>
@@ -262,7 +280,7 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 						</View>
 					</View>
 					{lineItems.map((item, index) => (
-						<View key={index} style={styles.tableRow}>
+						<View key={index} style={index % 2 === 0 ? styles.tableRowOdd : styles.tableRow}>
 							<View style={styles.itemNo}>
 								<Text>{index + 1}</Text>
 							</View>
