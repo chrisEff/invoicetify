@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 
-import { AddCircle, RemoveCircle } from '@mui/icons-material'
-import { Box, Button, FormLabel, TextField, Tooltip } from '@mui/material'
+import { AddCircle, ArrowCircleLeft, ArrowCircleRight, RemoveCircle } from '@mui/icons-material'
+import { Box, Button, Fab, FormLabel, TextField, Tooltip } from '@mui/material'
 
 import { useTranslations } from '../../context/TranslationsContext'
 import type { Settings } from '../../types'
@@ -52,6 +52,15 @@ const Content = ({ settings, setSettings }: ContentProps) => {
 			setSettings(existing => ({ ...existing, footer: [...existing.footer, footerRef.current.value] }))
 			footerRef.current.value = ''
 		}
+	}
+	const moveFooterSection = (from: number, to: number) => {
+		setSettings(existing => {
+			const footer = [...existing.footer]
+			const item = footer[from]
+			footer.splice(from, 1)
+			footer.splice(to, 0, item)
+			return { ...existing, footer }
+		})
 	}
 	const removeFooterSection = (index: number) => {
 		setSettings(existing => ({ ...existing, footer: existing.footer.filter((item, i) => i !== index) }))
@@ -110,6 +119,7 @@ const Content = ({ settings, setSettings }: ContentProps) => {
 				sx={{
 					display: 'flex',
 					flexDirection: 'row',
+					gap: '20px',
 				}}
 			>
 				{!settings.footer.length && (
@@ -126,23 +136,49 @@ const Content = ({ settings, setSettings }: ContentProps) => {
 					</>
 				)}
 				{settings.footer.map((item, index) => (
-					<Box key={index} sx={{ display: 'flex', flexDirection: 'column', padding: 5 }}>
+					<Box key={index} sx={{ display: 'flex', flexDirection: 'column', padding: '10px' }}>
 						<Box sx={{ flexGrow: 1, whiteSpace: 'pre' }}>{item}</Box>
-						<Tooltip title={i18n.settings.remove}>
-							<RemoveCircle onClick={() => removeFooterSection(index)} />
-						</Tooltip>
+						<Box key={index} sx={{ display: 'flex', gap: '5px' }}>
+							{index > 0 && (
+								<Tooltip title={i18n.settings.moveLeft}>
+									<Fab size="small" onClick={() => moveFooterSection(index, index - 1)}>
+										<ArrowCircleLeft />
+									</Fab>
+								</Tooltip>
+							)}
+							{index < settings.footer.length - 1 && (
+								<Tooltip title={i18n.settings.moveRight}>
+									<Fab size="small" onClick={() => moveFooterSection(index, index + 1)}>
+										<ArrowCircleRight />
+									</Fab>
+								</Tooltip>
+							)}
+							<Tooltip title={i18n.settings.remove}>
+								<Fab size="small" onClick={() => removeFooterSection(index)}>
+									<RemoveCircle />
+								</Fab>
+							</Tooltip>
+						</Box>
 					</Box>
 				))}
-			</Box>
-			{settings.footer.length < 5 && (
-				<>
-					<TextField inputRef={footerRef} multiline rows={4} />
-					<br />
-					<Tooltip title={i18n.settings.add}>
-						<AddCircle onClick={addFooterSection} />
+				<Box sx={{ display: 'flex', flexDirection: 'column', padding: '10px', width: '300px' }}>
+					<Tooltip title={settings.footer.length < 5 ? '' : i18n.settings.maxFooterSectionsReached}>
+						<TextField inputRef={footerRef} multiline rows={4} fullWidth disabled={settings.footer.length >= 5} />
 					</Tooltip>
-				</>
-			)}
+					<Tooltip title={settings.footer.length < 5 ? i18n.settings.add : i18n.settings.maxFooterSectionsReached}>
+						<Fab
+							disabled={settings.footer.length >= 5}
+							size="small"
+							onClick={addFooterSection}
+							sx={{ margin: '5px 0' }}
+						>
+							<AddCircle />
+						</Fab>
+					</Tooltip>
+				</Box>
+				<br />
+				<br />
+			</Box>
 		</>
 	)
 }

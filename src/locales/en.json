@@ -62,6 +62,9 @@
     "introductoryText": "Introductory Text",
     "closingText": "Closing Text",
     "add": "Add",
-    "remove": "Remove"
+    "remove": "Remove",
+    "moveLeft": "Move Left",
+    "moveRight": "Move Right",
+    "maxFooterSectionsReached": "You can only add up to 5 footer sections."
   }
 }

@@ -62,7 +62,10 @@
     "introductoryText": "Einleitungstext",
     "closingText": "Schlusstext",
     "add": "Hinzufügen",
-    "remove": "Entfernen"
+    "remove": "Entfernen",
+    "moveLeft": "Nach links verschieben",
+    "moveRight": "Nach rechts verschieben",
+    "maxFooterSectionsReached": "Es können maximal 5 Abschnitte hinzugefügt werden."
   }
 }
 
