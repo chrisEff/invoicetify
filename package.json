@@ -25,7 +25,7 @@
 		"@fontsource/roboto": "^5.1.1",
 		"@mui/icons-material": "^6.4.4",
 		"@mui/material": "^6.4.4",
-		"@react-pdf/renderer": "^4.2.1",
+		"@react-pdf/renderer": "^4.2.2",
 		"dot-object": "^2.1.5",
 		"electron-squirrel-startup": "^1.0.1",
 		"electron-store": "^10.0.1",
@@ -50,8 +50,8 @@
 		"@semantic-release/exec": "^7.0.3",
 		"@semantic-release/git": "^10.0.1",
 		"@types/dot-object": "^2.1.6",
-		"@types/react": "^19.0.8",
-		"@types/react-dom": "^19.0.3",
+		"@types/react": "^19.0.10",
+		"@types/react-dom": "^19.0.4",
 		"@vercel/webpack-asset-relocator-loader": "1.7.3",
 		"babel-loader": "^9.2.1",
 		"css-loader": "^7.1.2",
@@ -64,10 +64,10 @@
 		"node-loader": "^2.1.0",
 		"prettier": "^3.5.1",
 		"prop-types": "^15.8.1",
-		"semantic-release": "^24.2.2",
+		"semantic-release": "^24.2.3",
 		"style-loader": "^4.0.0",
 		"ts-loader": "^9.5.2",
 		"typescript": "^5.7.3",
-		"typescript-eslint": "^8.24.0"
+		"typescript-eslint": "^8.24.1"
 	}
 }
