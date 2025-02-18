@@ -12,7 +12,7 @@ import { TranslationsProvider, useTranslations } from '../context/TranslationsCo
 import type { Details, LineItem, Recipient, Settings } from '../types'
 import DetailsForm from './DetailsForm'
 import LineItemsForm from './LineItemsForm'
-import Pdf from './Pdf'
+import Pdf from './Pdf/Pdf'
 import RecipientForm from './RecipientForm'
 import SettingsForm from './Settings/Settings'
 

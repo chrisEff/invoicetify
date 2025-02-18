@@ -18,7 +18,7 @@ const defaults = {
 			fontFamily: 'OpenSans',
 			fontSize: 10,
 			padding: {
-				left: 2,
+				left: 2.5,
 				right: 2,
 				top: 2,
 				bottom: 2,
