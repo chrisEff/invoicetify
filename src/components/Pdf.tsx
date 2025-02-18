@@ -231,7 +231,7 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 
 				<View style={styles.details}>
 					<Text>
-						{i18n.details.date}: {details.date}
+						{i18n.details.date}: {new Date(details.date).toLocaleDateString(settings.language)}
 					</Text>
 					<Text>
 						{i18n.details.customerNo}: {details.customerNo}
@@ -243,8 +243,10 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 				</Text>
 				{details.servicePeriodStart && (
 					<Text>
-						{i18n.details.servicePeriod}: {details.servicePeriodStart}
-						{details.servicePeriodEnd && <> - {details.servicePeriodEnd}</>}
+						{i18n.details.servicePeriod}: {new Date(details.servicePeriodStart).toLocaleDateString(settings.language)}
+						{details.servicePeriodEnd && (
+							<> - {new Date(details.servicePeriodEnd).toLocaleDateString(settings.language)}</>
+						)}
 					</Text>
 				)}
 				{recipient.salutation && (
