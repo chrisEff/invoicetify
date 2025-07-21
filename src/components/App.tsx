@@ -138,7 +138,7 @@ const App = () => {
 								<Pdf {...{ recipient, details, lineItems, settings }} />
 							</TranslationsProvider>
 						}
-						fileName={i18n.invoice + '.pdf'}
+						fileName={`${i18n.invoice}${details.invoiceNo ? '-' + details.invoiceNo : ''}.pdf`}
 					>
 						{({ loading }) =>
 							loading ? (
