@@ -38,6 +38,7 @@ const App = () => {
 		city: '',
 	})
 	const [details, setDetails] = useLocalStorage<Details>('details', {
+		documentType: 'invoice',
 		customerNo: '',
 		invoiceNo: '',
 		date: '',
@@ -85,7 +86,7 @@ const App = () => {
 
 	const fillDummyData = () => {
 		setRecipient(getRandomRecipient())
-		setDetails(getRandomDetails())
+		setDetails(getRandomDetails(details.documentType))
 		setLineItems(getRandomItems())
 	}
 
@@ -94,6 +95,15 @@ const App = () => {
 			window.electronAPI.storeSet('devMode', !devMode)
 			setDevMode(!devMode)
 		}
+	}
+
+	const getExportFileName = () => {
+		let result = details.documentType === 'invoice' ? i18n.invoice : i18n.deliveryNote
+		if (details.invoiceNo) {
+			result += '-' + details.invoiceNo
+		}
+
+		return result + '.pdf'
 	}
 
 	return (
@@ -114,7 +124,7 @@ const App = () => {
 								<Pdf {...{ recipient, details, lineItems, settings }} />
 							</TranslationsProvider>
 						}
-						fileName={`${i18n.invoice}${details.invoiceNo ? '-' + details.invoiceNo : ''}.pdf`}
+						fileName={getExportFileName()}
 					>
 						{({ loading }) =>
 							loading ? (
@@ -136,7 +146,7 @@ const App = () => {
 				</Tooltip>
 			</Box>
 			<Typography variant="h1" onClick={handleH1Click}>
-				{i18n.invoice}
+				{details.documentType === 'invoice' ? i18n.invoice : i18n.deliveryNote}
 			</Typography>
 
 			<Tabs value={tab} onChange={(e, value) => setTab(value)}>

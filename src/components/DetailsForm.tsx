@@ -1,9 +1,9 @@
 import React, { ChangeEvent } from 'react'
 
-import { Box, FormControl, TextField } from '@mui/material'
+import { Box, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '@mui/material'
 
 import { useTranslations } from '../context/TranslationsContext'
-import type { Details } from '../types'
+import type { Details, DocumentType } from '../types'
 
 interface DetailsFormProps {
 	details: Details
@@ -12,6 +12,9 @@ interface DetailsFormProps {
 
 const DetailsForm = function ({ details, setDetails }: DetailsFormProps) {
 	const { translations: i18n } = useTranslations()
+
+	const updateDocumentType = (e: ChangeEvent<HTMLInputElement>) =>
+		setDetails((existing: Details) => ({ ...existing, documentType: e.target.value as DocumentType }))
 
 	const updateCustomerNo = (e: ChangeEvent<HTMLInputElement>) =>
 		setDetails((existing: Details) => ({ ...existing, customerNo: e.target.value }))
@@ -30,6 +33,13 @@ const DetailsForm = function ({ details, setDetails }: DetailsFormProps) {
 
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', width: '500px', maxWidth: '50%' }}>
+			<FormControl margin="dense">
+				<FormLabel>{i18n.details.documentType}</FormLabel>
+				<RadioGroup value={details.documentType} onChange={updateDocumentType}>
+					<FormControlLabel value="invoice" control={<Radio />} label={i18n.invoice} />
+					<FormControlLabel value="deliveryNote" control={<Radio />} label={i18n.deliveryNote} />
+				</RadioGroup>
+			</FormControl>
 			<TextField
 				label={i18n.details.customerNo}
 				value={details.customerNo}

@@ -1,5 +1,6 @@
 {
   "invoice": "Invoice",
+  "deliveryNote": "Delivery Note",
   "kindRegards": "Kind regards",
   "exportPdf": "export PDF",
   "tabs": {
@@ -21,6 +22,7 @@
     "dearSirOrMadam": "Dear Sir or Madam"
   },
   "details": {
+    "documentType": "Document Type",
     "customerNo": "Customer No",
     "invoiceNo": "Invoice No",
     "date": "Date",

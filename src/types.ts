@@ -9,7 +9,10 @@ export interface Recipient {
 	city: string
 }
 
+export type DocumentType = 'invoice' | 'deliveryNote'
+
 export interface Details {
+	documentType: DocumentType
 	customerNo: string
 	invoiceNo: string
 	date: string

@@ -169,7 +169,7 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 				</View>
 
 				<Text style={styles.subject}>
-					{i18n.invoice} {details.invoiceNo}
+					{details.documentType === 'invoice' ? i18n.invoice : i18n.deliveryNote} {details.invoiceNo}
 				</Text>
 				{details.servicePeriodStart && (
 					<Text>
@@ -190,7 +190,7 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 					<>{settings.introductoryText}</>
 				</TextView>
 
-				<Table lineItems={lineItems} />
+				<Table details={details} lineItems={lineItems} />
 
 				<TextView emptyLinesBefore={2}>
 					<>{settings.closingText}</>

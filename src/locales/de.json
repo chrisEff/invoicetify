@@ -1,5 +1,6 @@
 {
   "invoice": "Rechnung",
+  "deliveryNote": "Lieferschein",
   "kindRegards": "Mit freundlichen Grüßen",
   "exportPdf": "PDF exportieren",
   "tabs": {
@@ -21,6 +22,7 @@
     "dearSirOrMadam": "Sehr geehrte Damen und Herren"
   },
   "details": {
+    "documentType": "Dokumenttyp",
     "customerNo": "Kundennummer",
     "invoiceNo": "Rechnungsnummer",
     "date": "Datum",

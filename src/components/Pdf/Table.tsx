@@ -5,13 +5,14 @@ import { Text, View } from '@react-pdf/renderer'
 import { Style } from '@react-pdf/types/style'
 
 import { useTranslations } from '../../context/TranslationsContext'
-import type { LineItem } from '../../types'
+import type { Details, LineItem } from '../../types'
 
 interface TableProps {
+	details: Details
 	lineItems: Array<LineItem>
 }
 
-const Table = ({ lineItems }: TableProps) => {
+const Table = ({ details, lineItems }: TableProps) => {
 	const { translations: i18n } = useTranslations()
 
 	const styles: { [key: string]: Style } = {
@@ -81,12 +82,16 @@ const Table = ({ lineItems }: TableProps) => {
 				<View style={styles.quantity}>
 					<Text>{i18n.lineItems.quantity}</Text>
 				</View>
-				<View style={styles.unitPrice}>
-					<Text>{i18n.lineItems.unitPrice}</Text>
-				</View>
-				<View style={styles.amount}>
-					<Text>{i18n.lineItems.amount}</Text>
-				</View>
+				{details.documentType === 'invoice' && (
+					<>
+						<View style={styles.unitPrice}>
+							<Text>{i18n.lineItems.unitPrice}</Text>
+						</View>
+						<View style={styles.amount}>
+							<Text>{i18n.lineItems.amount}</Text>
+						</View>
+					</>
+				)}
 			</View>
 			{lineItems.map((item, index) => (
 				<View key={index} style={index % 2 === 0 ? styles.tableRowOdd : styles.tableRow}>
@@ -99,41 +104,49 @@ const Table = ({ lineItems }: TableProps) => {
 					<View style={styles.quantity}>
 						<Text>{item.quantity}</Text>
 					</View>
-					<View style={styles.unitPrice}>
-						<Text>{item.unitPrice.toFixed(2)} €</Text>
-					</View>
-					<View style={styles.amount}>
-						<Text>{(item.quantity * item.unitPrice).toFixed(2)} €</Text>
-					</View>
+					{details.documentType === 'invoice' && (
+						<>
+							<View style={styles.unitPrice}>
+								<Text>{item.unitPrice.toFixed(2)} €</Text>
+							</View>
+							<View style={styles.amount}>
+								<Text>{(item.quantity * item.unitPrice).toFixed(2)} €</Text>
+							</View>
+						</>
+					)}
 				</View>
 			))}
-			<View style={styles.tableRow}>
-				<Text> </Text>
-			</View>
-			<View style={{ ...styles.tableRow, ...styles.total }}>
-				<View style={styles.title}>
-					<Text> </Text>
-				</View>
-				<View style={styles.unitPrice}>
-					<Text>{i18n.lineItems.total}:</Text>
-				</View>
-				<View style={styles.amount}>
-					<Text>{total} €</Text>
-				</View>
-			</View>
-			{vatLines.map((vatLine, index) => (
-				<View key={index} style={{ ...styles.tableRow }}>
-					<View style={styles.title}>
+			{details.documentType === 'invoice' && (
+				<>
+					<View style={styles.tableRow}>
 						<Text> </Text>
 					</View>
-					<View style={styles.unitPrice}>
-						<Text>inkl. {vatLine.percent}% Mwst.:</Text>
+					<View style={{ ...styles.tableRow, ...styles.total }}>
+						<View style={styles.title}>
+							<Text> </Text>
+						</View>
+						<View style={styles.unitPrice}>
+							<Text>{i18n.lineItems.total}:</Text>
+						</View>
+						<View style={styles.amount}>
+							<Text>{total} €</Text>
+						</View>
 					</View>
-					<View style={styles.amount}>
-						<Text>{vatLine.amount} €</Text>
-					</View>
-				</View>
-			))}
+					{vatLines.map((vatLine, index) => (
+						<View key={index} style={{ ...styles.tableRow }}>
+							<View style={styles.title}>
+								<Text> </Text>
+							</View>
+							<View style={styles.unitPrice}>
+								<Text>inkl. {vatLine.percent}% Mwst.:</Text>
+							</View>
+							<View style={styles.amount}>
+								<Text>{vatLine.amount} €</Text>
+							</View>
+						</View>
+					))}
+				</>
+			)}
 		</View>
 	)
 }
