@@ -9,6 +9,9 @@ import { Box, Button, Paper, Tab, Tabs, Tooltip, Typography } from '@mui/materia
 import { PDFDownloadLink } from '@react-pdf/renderer'
 
 import { TranslationsProvider, useTranslations } from '../context/TranslationsContext'
+import { getRandomDetails } from '../demoData/details'
+import { getRandomItems } from '../demoData/items'
+import { getRandomRecipient } from '../demoData/recipients'
 import type { Details, LineItem, Recipient, Settings } from '../types'
 import DetailsForm from './DetailsForm'
 import LineItemsForm from './LineItemsForm'
@@ -79,38 +82,9 @@ const App = () => {
 	}, [settings])
 
 	const fillDummyData = () => {
-		setRecipient({
-			salutation: 'dearMr',
-			firstName: 'John',
-			lastName: 'Doe',
-			street: 'Fakestreet 123',
-			zipcode: '12345',
-			city: 'Faketown',
-		})
-		setDetails({
-			customerNo: '12345',
-			invoiceNo: '12345-67890',
-			date: '2025-01-01',
-			servicePeriodStart: '2024-09-26',
-			servicePeriodEnd: '2024-11-01',
-		})
-		setLineItems([
-			{
-				title: 'Item 1',
-				quantity: 3,
-				unitPrice: 49.99,
-			},
-			{
-				title: 'Item 2',
-				quantity: 7,
-				unitPrice: 129.9,
-			},
-			{
-				title: 'Item 3',
-				quantity: 2,
-				unitPrice: 27.63,
-			},
-		])
+		setRecipient(getRandomRecipient())
+		setDetails(getRandomDetails())
+		setLineItems(getRandomItems())
 	}
 
 	const handleH1Click = () => {
