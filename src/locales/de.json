@@ -34,7 +34,8 @@
     "quantity": "Menge",
     "unitPrice": "Einzelpreis",
     "amount": "Betrag",
-    "total": "Gesamtbetrag"
+    "total": "Gesamtbetrag",
+    "vat": "Mwst."
   },
   "settings": {
     "header": "Einstellungen",

@@ -21,6 +21,7 @@ export interface LineItem {
 	title: string
 	quantity: number
 	unitPrice: number
+	vat: number
 }
 
 export type FontFamily = 'OpenSans' | 'Roboto' | 'RobotoMono' | 'RobotoSerif'

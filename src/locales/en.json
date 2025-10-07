@@ -34,7 +34,8 @@
     "quantity": "Quantity",
     "unitPrice": "Unit Price",
     "amount": "Amount",
-    "total": "Total"
+    "total": "Total",
+    "vat": "VAT"
   },
   "settings": {
     "header": "Settings",

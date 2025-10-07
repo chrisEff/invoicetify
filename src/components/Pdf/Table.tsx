@@ -53,6 +53,22 @@ const Table = ({ lineItems }: TableProps) => {
 		.reduce((total, item) => total + item.quantity * item.unitPrice, 0)
 		.toFixed(2)
 
+	const vatClasses = lineItems //
+		.map(item => item.vat)
+		.filter(value => !!value)
+		.filter((value, index, self) => self.indexOf(value) === index)
+
+	const vatLines = vatClasses //
+		.map(vatClass => {
+			return {
+				percent: vatClass,
+				amount: lineItems
+					.filter(item => item.vat === vatClass)
+					.reduce((total, item) => total + (item.quantity * item.unitPrice * item.vat) / 100, 0)
+					.toFixed(2),
+			}
+		})
+
 	return (
 		<View style={styles.table}>
 			<View style={{ ...styles.tableRow, ...styles.tableHeader }}>
@@ -105,6 +121,19 @@ const Table = ({ lineItems }: TableProps) => {
 					<Text>{total} €</Text>
 				</View>
 			</View>
+			{vatLines.map((vatLine, index) => (
+				<View key={index} style={{ ...styles.tableRow }}>
+					<View style={styles.title}>
+						<Text> </Text>
+					</View>
+					<View style={styles.unitPrice}>
+						<Text>inkl. {vatLine.percent}% Mwst.:</Text>
+					</View>
+					<View style={styles.amount}>
+						<Text>{vatLine.amount} €</Text>
+					</View>
+				</View>
+			))}
 		</View>
 	)
 }

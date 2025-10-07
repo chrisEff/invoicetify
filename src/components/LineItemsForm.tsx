@@ -18,12 +18,14 @@ const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFormProps)
 	const titleRef = useRef<HTMLInputElement>(null)
 	const quantityRef = useRef<HTMLInputElement>(null)
 	const unitPriceRef = useRef<HTMLInputElement>(null)
+	const vatRef = useRef<HTMLInputElement>(null)
 
 	const addLineItem = () => {
 		const newItem = {
 			title: titleRef.current.value,
 			quantity: parseFloat(quantityRef.current.value),
 			unitPrice: parseFloat(unitPriceRef.current.value),
+			vat: parseFloat(vatRef.current.value),
 		}
 
 		setLineItems((existing: Array<LineItem>) => [...existing, newItem])
@@ -31,6 +33,7 @@ const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFormProps)
 		titleRef.current.value = ''
 		quantityRef.current.value = ''
 		unitPriceRef.current.value = ''
+		vatRef.current.value = ''
 		onInputChange()
 	}
 
@@ -62,6 +65,7 @@ const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFormProps)
 								<TableCell>{i18n.lineItems.title}</TableCell>
 								<TableCell sx={{ width: '10em' }}>{i18n.lineItems.quantity}</TableCell>
 								<TableCell sx={{ width: '10em' }}>{i18n.lineItems.unitPrice}</TableCell>
+								<TableCell sx={{ width: '10em' }}>{i18n.lineItems.vat}</TableCell>
 								<TableCell sx={{ width: '10em' }}>{i18n.lineItems.amount}</TableCell>
 								<TableCell></TableCell>
 							</TableRow>
@@ -73,6 +77,7 @@ const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFormProps)
 									<TableCell>{item.title}</TableCell>
 									<TableCell>{item.quantity}</TableCell>
 									<TableCell>{item.unitPrice.toFixed(2)}</TableCell>
+									<TableCell>{item.vat ?? '-'}</TableCell>
 									<TableCell>{(item.quantity * item.unitPrice).toFixed(2)}</TableCell>
 									<TableCell>
 										<Fab onClick={() => removeLineItem(index)} size="small">
@@ -91,6 +96,9 @@ const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFormProps)
 								</TableCell>
 								<TableCell>
 									<TextField onChange={onInputChange} inputRef={unitPriceRef} type="number" />
+								</TableCell>
+								<TableCell>
+									<TextField onChange={onInputChange} inputRef={vatRef} type="number" />
 								</TableCell>
 								<TableCell></TableCell>
 								<TableCell>
