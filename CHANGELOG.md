@@ -1,3 +1,22 @@
+# [1.0.0-alpha.3](https://github.com/chrisEff/invoicetify/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2025-10-07)
+
+
+### Bug Fixes
+
+* adjust column widths in output to avoid overlapping ([772b99f](https://github.com/chrisEff/invoicetify/commit/772b99ffed976136d3c560c3bb03e1040cd910f4))
+* avoid extraneous space before company name ([d348986](https://github.com/chrisEff/invoicetify/commit/d348986b2f2e8f11d41d0944c45a601459ad226f))
+* make sure to display total with only 2 decimal digits ([13bbcef](https://github.com/chrisEff/invoicetify/commit/13bbcef1318ba234a380e8e9f1bf26bafffb3715))
+
+
+### Features
+
+* add basic VAT support ([9411b3c](https://github.com/chrisEff/invoicetify/commit/9411b3c5f4df472bbf553b4ba251b980b0a98dd7))
+* add invoice number to filename when exporting PDF ([5c9e9e3](https://github.com/chrisEff/invoicetify/commit/5c9e9e3f5f230021edbeda5ff76d007510805128))
+* allow switching document type from "invoice" to "deliveryNote" ([11b41aa](https://github.com/chrisEff/invoicetify/commit/11b41aa0138effcb81700552b18c7ec20b56374f))
+* better demo data ([b6453ac](https://github.com/chrisEff/invoicetify/commit/b6453acf183a7137e3d12ff6ddb8d70b77de1169))
+* better demo data ([266631b](https://github.com/chrisEff/invoicetify/commit/266631b330c98c4f04ea116671d22e62a40d5859))
+* save invoice data in localstorage so it doesn't get lost on reloads/restarts ([482a83f](https://github.com/chrisEff/invoicetify/commit/482a83f8fcf906b6284818b35659c607aca0dcda))
+
 # [1.0.0-alpha.2](https://github.com/chrisEff/invoicetify/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2025-02-18)
 
 
