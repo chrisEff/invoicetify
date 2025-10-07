@@ -146,7 +146,8 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 					<View>
 						<Text style={styles.senderAddress}>{settings.senderAddress}</Text>
 						<Text>
-							{recipient.firstName} {recipient.lastName}
+							{recipient.firstName ? `${recipient.firstName} ` : ''}
+							{recipient.lastName}
 						</Text>
 						<Text>{recipient.street}</Text>
 						<Text>
