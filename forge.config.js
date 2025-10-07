@@ -33,6 +33,7 @@ module.exports = {
 			name: '@electron-forge/plugin-webpack',
 			config: {
 				mainConfig: './webpack.main.config.js',
+				port: 3042,
 				renderer: {
 					config: './webpack.renderer.config.js',
 					entryPoints: [
