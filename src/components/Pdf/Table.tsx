@@ -35,14 +35,14 @@ const Table = ({ lineItems }: TableProps) => {
 			flexGrow: 1,
 		},
 		quantity: {
-			width: '100px',
+			width: '75px',
 		},
 		unitPrice: {
-			width: '100px',
+			width: '75px',
 		},
 		amount: {
 			textAlign: 'right',
-			width: '100px',
+			width: '75px',
 		},
 		total: {
 			fontWeight: 'bold',
