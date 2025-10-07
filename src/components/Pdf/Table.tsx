@@ -49,7 +49,9 @@ const Table = ({ lineItems }: TableProps) => {
 		},
 	}
 
-	const total = lineItems.reduce((total, item) => total + item.quantity * item.unitPrice, 0)
+	const total = lineItems //
+		.reduce((total, item) => total + item.quantity * item.unitPrice, 0)
+		.toFixed(2)
 
 	return (
 		<View style={styles.table}>
