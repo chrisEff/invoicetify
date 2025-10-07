@@ -7,6 +7,7 @@ import {
 } from '@mui/icons-material'
 import { Box, Button, Paper, Tab, Tabs, Tooltip, Typography } from '@mui/material'
 import { PDFDownloadLink } from '@react-pdf/renderer'
+import { useLocalStorage } from '@uidotdev/usehooks'
 
 import { TranslationsProvider, useTranslations } from '../context/TranslationsContext'
 import { getRandomDetails } from '../demoData/details'
@@ -27,7 +28,8 @@ const App = () => {
 	const [showPdfButton, setShowPdfButton] = useState<boolean>(true)
 	const [showSettings, setShowSettings] = useState<boolean>(false)
 	const [settings, _setSettings] = useState<Settings>(null)
-	const [recipient, setRecipient] = useState<Recipient>({
+
+	const [recipient, setRecipient] = useLocalStorage<Recipient>('recipient', {
 		salutation: null,
 		firstName: '',
 		lastName: '',
@@ -35,14 +37,14 @@ const App = () => {
 		zipcode: '',
 		city: '',
 	})
-	const [details, setDetails] = useState<Details>({
+	const [details, setDetails] = useLocalStorage<Details>('details', {
 		customerNo: '',
 		invoiceNo: '',
 		date: '',
 		servicePeriodStart: '',
 		servicePeriodEnd: '',
 	})
-	const [lineItems, _setLineItems] = useState<Array<LineItem>>([])
+	const [lineItems, _setLineItems] = useLocalStorage<Array<LineItem>>('lineItems', [])
 
 	// Workaround for a bug in react-pdf that causes the App to crash when an item is removed from an array
 	// see https://github.com/diegomura/react-pdf/issues/2978
