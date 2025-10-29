@@ -1,3 +1,10 @@
+# [1.0.0-alpha.4](https://github.com/chrisEff/invoicetify/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2025-10-29)
+
+
+### Features
+
+* add order number ([eb284fb](https://github.com/chrisEff/invoicetify/commit/eb284fb52ae3fedf9287f0c23c367fed8247f4cb))
+
 # [1.0.0-alpha.3](https://github.com/chrisEff/invoicetify/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2025-10-07)
 
 
