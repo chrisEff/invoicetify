@@ -25,6 +25,7 @@
     "documentType": "Document Type",
     "customerNo": "Customer No",
     "invoiceNo": "Invoice No",
+    "orderNo": "Order No",
     "date": "Date",
     "servicePeriod": "Service Period",
     "servicePeriodStart": "Service Period from",

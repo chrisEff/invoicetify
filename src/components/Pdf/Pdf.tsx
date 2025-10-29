@@ -117,7 +117,7 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 			textAlign: 'right',
 		},
 		details: {
-			marginLeft: '12.5cm',
+			alignItems: 'flex-end',
 		},
 		subject: {
 			fontWeight: 'bold',
@@ -160,12 +160,19 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 				</View>
 
 				<View style={styles.details}>
-					<Text>
-						{i18n.details.date}: {new Date(details.date).toLocaleDateString(settings.language)}
-					</Text>
-					<Text>
-						{i18n.details.customerNo}: {details.customerNo}
-					</Text>
+					<View>
+						<Text>
+							{i18n.details.date}: {new Date(details.date).toLocaleDateString(settings.language)}
+						</Text>
+						<Text>
+							{i18n.details.customerNo}: {details.customerNo}
+						</Text>
+						{details.orderNo && (
+							<Text>
+								{i18n.details.orderNo}: {details.orderNo}
+							</Text>
+						)}
+					</View>
 				</View>
 
 				<Text style={styles.subject}>

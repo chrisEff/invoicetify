@@ -41,6 +41,7 @@ const App = () => {
 		documentType: 'invoice',
 		customerNo: '',
 		invoiceNo: '',
+		orderNo: '',
 		date: '',
 		servicePeriodStart: '',
 		servicePeriodEnd: '',

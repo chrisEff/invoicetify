@@ -15,6 +15,7 @@ export interface Details {
 	documentType: DocumentType
 	customerNo: string
 	invoiceNo: string
+	orderNo: string
 	date: string
 	servicePeriodStart: string
 	servicePeriodEnd: string

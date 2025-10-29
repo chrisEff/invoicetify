@@ -25,6 +25,7 @@
     "documentType": "Dokumenttyp",
     "customerNo": "Kundennummer",
     "invoiceNo": "Rechnungsnummer",
+    "orderNo": "Auftragsnummer",
     "date": "Datum",
     "servicePeriod": "Leistungszeitraum",
     "servicePeriodStart": "Leistungszeitraum von",

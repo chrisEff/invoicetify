@@ -22,6 +22,9 @@ const DetailsForm = function ({ details, setDetails }: DetailsFormProps) {
 	const updateInvoiceNo = (e: ChangeEvent<HTMLInputElement>) =>
 		setDetails((existing: Details) => ({ ...existing, invoiceNo: e.target.value }))
 
+	const updateOrdereNo = (e: ChangeEvent<HTMLInputElement>) =>
+		setDetails((existing: Details) => ({ ...existing, orderNo: e.target.value }))
+
 	const updateDate = (e: ChangeEvent<HTMLInputElement>) =>
 		setDetails((existing: Details) => ({ ...existing, date: e.target.value }))
 
@@ -47,6 +50,7 @@ const DetailsForm = function ({ details, setDetails }: DetailsFormProps) {
 				margin="dense"
 			/>
 			<TextField label={i18n.details.invoiceNo} value={details.invoiceNo} onChange={updateInvoiceNo} margin="dense" />
+			<TextField label={i18n.details.orderNo} value={details.orderNo} onChange={updateOrdereNo} margin="dense" />
 			<FormControl sx={{ filled: '1' }} margin="dense">
 				<TextField
 					label={i18n.details.date}
