@@ -6,6 +6,7 @@ import { Style } from '@react-pdf/types/style'
 
 import { useTranslations } from '../../context/TranslationsContext'
 import type { Details, LineItem } from '../../types'
+import { getTaxAmount } from '../../util/tax'
 
 interface TableProps {
 	details: Details
@@ -65,7 +66,7 @@ const Table = ({ details, lineItems }: TableProps) => {
 				percent: vatClass,
 				amount: lineItems
 					.filter(item => item.vat === vatClass)
-					.reduce((total, item) => total + (item.quantity * item.unitPrice * item.vat) / 100, 0)
+					.reduce((total, item) => total + getTaxAmount(item.quantity * item.unitPrice, item.vat), 0)
 					.toFixed(2),
 			}
 		})
