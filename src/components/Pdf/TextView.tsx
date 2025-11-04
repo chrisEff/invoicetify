@@ -7,7 +7,11 @@ interface TextViewProps {
 	emitEmptyLinesAfter?: number
 }
 
-const TextView = ({ children, emptyLinesBefore = 0, emitEmptyLinesAfter = 0 }: PropsWithChildren<TextViewProps>) => {
+export const TextView = ({
+	children,
+	emptyLinesBefore = 0,
+	emitEmptyLinesAfter = 0,
+}: PropsWithChildren<TextViewProps>) => {
 	return (
 		<View>
 			{emptyLinesBefore > 0 && Array.from({ length: emptyLinesBefore }).map((_, index) => <Text key={index}> </Text>)}
@@ -17,5 +21,3 @@ const TextView = ({ children, emptyLinesBefore = 0, emitEmptyLinesAfter = 0 }: P
 		</View>
 	)
 }
-
-export default TextView

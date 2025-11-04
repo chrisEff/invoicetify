@@ -13,7 +13,7 @@ interface TableProps {
 	lineItems: Array<LineItem>
 }
 
-const Table = ({ details, lineItems }: TableProps) => {
+export const Table = ({ details, lineItems }: TableProps) => {
 	const { translations: i18n } = useTranslations()
 
 	const styles: { [key: string]: Style } = {
@@ -151,5 +151,3 @@ const Table = ({ details, lineItems }: TableProps) => {
 		</View>
 	)
 }
-
-export default Table

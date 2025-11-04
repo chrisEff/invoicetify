@@ -11,7 +11,7 @@ interface ContentProps {
 	setSettings: (callback: (settings: Settings) => Settings) => void
 }
 
-const Content = ({ settings, setSettings }: ContentProps) => {
+export const ContentSettings = ({ settings, setSettings }: ContentProps) => {
 	const footerRef = useRef(null)
 
 	const { translations: i18n } = useTranslations()
@@ -182,5 +182,3 @@ const Content = ({ settings, setSettings }: ContentProps) => {
 		</>
 	)
 }
-
-export default Content

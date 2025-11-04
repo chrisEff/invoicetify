@@ -5,9 +5,9 @@ import { Box, Modal, Tab, Tabs, Typography } from '@mui/material'
 
 import { useTranslations } from '../../context/TranslationsContext'
 import type { Settings } from '../../types'
-import Content from './Content'
-import General from './General'
-import Layout from './Layout'
+import { ContentSettings } from './ContentSettings'
+import { GeneralSettings } from './GeneralSettings'
+import { LayoutSettings } from './LayoutSettings'
 
 const styles: { [key: string]: CSSProperties } = {
 	dialogContent: {
@@ -38,7 +38,7 @@ interface SettingsProps {
 	setShowSettings: (showSettings: boolean) => void
 }
 
-const Settings = ({ settings, setSettings, setShowSettings }: SettingsProps) => {
+export const SettingsModal = ({ settings, setSettings, setShowSettings }: SettingsProps) => {
 	const { translations: i18n } = useTranslations()
 
 	const [tab, setTab] = useState<string>('general')
@@ -62,12 +62,12 @@ const Settings = ({ settings, setSettings, setShowSettings }: SettingsProps) => 
 					{(() => {
 						switch (tab) {
 							case 'layout':
-								return <Layout {...{ settings, setSettings }} />
+								return <LayoutSettings {...{ settings, setSettings }} />
 							case 'content':
-								return <Content {...{ settings, setSettings }} />
+								return <ContentSettings {...{ settings, setSettings }} />
 							case 'recipient':
 							default:
-								return <General {...{ settings, setSettings }} />
+								return <GeneralSettings {...{ settings, setSettings }} />
 						}
 					})()}
 				</Box>
@@ -75,5 +75,3 @@ const Settings = ({ settings, setSettings, setShowSettings }: SettingsProps) => 
 		</Modal>
 	)
 }
-
-export default Settings

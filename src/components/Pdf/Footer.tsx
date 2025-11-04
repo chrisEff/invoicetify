@@ -10,7 +10,7 @@ interface FooterProps {
 	settings: Settings
 }
 
-const Footer = ({ settings }: FooterProps) => {
+export const Footer = ({ settings }: FooterProps) => {
 	const styles: { [key: string]: Style } = {
 		footer: {
 			borderTop: '1px solid black',
@@ -37,5 +37,3 @@ const Footer = ({ settings }: FooterProps) => {
 		</View>
 	)
 }
-
-export default Footer

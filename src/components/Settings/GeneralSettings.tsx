@@ -11,7 +11,7 @@ interface GeneralProps {
 	setSettings: (callback: (settings: Settings) => Settings) => void
 }
 
-const General = ({ settings, setSettings }: GeneralProps) => {
+export const GeneralSettings = ({ settings, setSettings }: GeneralProps) => {
 	const { setLanguage, translations: i18n } = useTranslations()
 	const { darkMode, setDarkMode } = useTheme()
 
@@ -41,5 +41,3 @@ const General = ({ settings, setSettings }: GeneralProps) => {
 		</>
 	)
 }
-
-export default General

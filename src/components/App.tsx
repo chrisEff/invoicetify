@@ -14,13 +14,13 @@ import { getRandomDetails } from '../demoData/details'
 import { getRandomItems } from '../demoData/items'
 import { getRandomRecipient } from '../demoData/recipients'
 import type { Details, LineItem, Recipient, Settings } from '../types'
-import DetailsForm from './DetailsForm'
-import LineItemsForm from './LineItemsForm'
-import Pdf from './Pdf/Pdf'
-import RecipientForm from './RecipientForm'
-import SettingsForm from './Settings/Settings'
+import { DetailsForm } from './DetailsForm'
+import { LineItemsForm } from './LineItemsForm'
+import { Pdf } from './Pdf/Pdf'
+import { RecipientForm } from './RecipientForm'
+import { SettingsModal as SettingsForm } from './Settings/SettingsModal'
 
-const App = () => {
+export const App = () => {
 	const { translations: i18n } = useTranslations()
 
 	const [devMode, setDevMode] = useState<boolean>(false)
@@ -173,5 +173,3 @@ const App = () => {
 		</>
 	)
 }
-
-export default App

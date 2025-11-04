@@ -11,7 +11,7 @@ interface LineItemsFormProps {
 	setLineItems: (cb: (existing: Array<LineItem>) => Array<LineItem>) => void
 }
 
-const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFormProps) {
+export const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFormProps) {
 	const { translations: i18n } = useTranslations()
 
 	const [dataComplete, setDataComplete] = useState(false)
@@ -114,5 +114,3 @@ const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFormProps)
 		</>
 	)
 }
-
-export default LineItemsForm

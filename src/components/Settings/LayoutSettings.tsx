@@ -12,7 +12,7 @@ interface LayoutProps {
 	setSettings: (callback: (settings: Settings) => Settings) => void
 }
 
-const Layout = ({ settings, setSettings }: LayoutProps) => {
+export const LayoutSettings = ({ settings, setSettings }: LayoutProps) => {
 	const { translations: i18n } = useTranslations()
 
 	const updateFontFamily = (e: ChangeEvent<HTMLInputElement>) =>
@@ -100,5 +100,3 @@ const Layout = ({ settings, setSettings }: LayoutProps) => {
 		</>
 	)
 }
-
-export default Layout

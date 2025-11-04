@@ -4,7 +4,7 @@ import { Image, View } from '@react-pdf/renderer'
 // eslint-disable-next-line import/no-unresolved
 import { Style } from '@react-pdf/types/style'
 
-const Header = () => {
+export const Header = () => {
 	const styles: { [key: string]: Style } = {
 		letterhead: {
 			display: 'flex',
@@ -51,5 +51,3 @@ const Header = () => {
 		</View>
 	)
 }
-
-export default Header

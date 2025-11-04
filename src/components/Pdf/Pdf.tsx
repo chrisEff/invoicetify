@@ -22,10 +22,10 @@ import RobotoSerifBold from '../../fonts/RobotoSerif/RobotoSerif-Bold.ttf'
 // @ts-expect-error font files are not recognized by typescript
 import RobotoSerifRegular from '../../fonts/RobotoSerif/RobotoSerif-Regular.ttf'
 import type { Details, LineItem, Recipient, Settings } from '../../types'
-import Footer from './Footer'
-import Header from './Header'
-import Table from './Table'
-import TextView from './TextView'
+import { Footer } from './Footer'
+import { Header } from './Header'
+import { Table } from './Table'
+import { TextView } from './TextView'
 
 interface PdfProps {
 	recipient: Recipient
@@ -34,7 +34,7 @@ interface PdfProps {
 	settings: Settings
 }
 
-const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
+export const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 	const { translations: i18n } = useTranslations()
 
 	Font.register({
@@ -208,5 +208,3 @@ const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 		</Document>
 	)
 }
-
-export default Pdf

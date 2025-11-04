@@ -10,7 +10,7 @@ interface RecipientFormProps {
 	setRecipient: (cb: (existing: Recipient) => Recipient) => void
 }
 
-const RecipientForm = function ({ recipient, setRecipient }: RecipientFormProps) {
+export const RecipientForm = function ({ recipient, setRecipient }: RecipientFormProps) {
 	const { translations: i18n } = useTranslations()
 
 	const updateSalutation = (e: ChangeEvent<HTMLInputElement>) =>
@@ -57,5 +57,3 @@ const RecipientForm = function ({ recipient, setRecipient }: RecipientFormProps)
 		</Box>
 	)
 }
-
-export default RecipientForm

@@ -10,7 +10,7 @@ interface DetailsFormProps {
 	setDetails: (cb: (existing: Details) => Details) => void
 }
 
-const DetailsForm = function ({ details, setDetails }: DetailsFormProps) {
+export const DetailsForm = function ({ details, setDetails }: DetailsFormProps) {
 	const { translations: i18n } = useTranslations()
 
 	const updateDocumentType = (e: ChangeEvent<HTMLInputElement>) =>
@@ -83,5 +83,3 @@ const DetailsForm = function ({ details, setDetails }: DetailsFormProps) {
 		</Box>
 	)
 }
-
-export default DetailsForm
