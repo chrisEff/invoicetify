@@ -178,7 +178,7 @@ export const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 				<Text style={styles.subject}>
 					{details.documentType === 'invoice' ? i18n.invoice : i18n.deliveryNote} {details.invoiceNo}
 				</Text>
-				{details.servicePeriodStart && (
+				{details.documentType === 'invoice' && details.servicePeriodStart && (
 					<Text>
 						{i18n.details.servicePeriod}: {new Date(details.servicePeriodStart).toLocaleDateString(settings.language)}
 						{details.servicePeriodEnd && (
