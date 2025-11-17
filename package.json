@@ -1,7 +1,7 @@
 {
 	"name": "invoicetify",
 	"productName": "invoicetify",
-	"version": "1.0.0-alpha.4",
+	"version": "1.0.0-alpha.5",
 	"description": "My Electron application description",
 	"main": ".webpack/main",
 	"keywords": [],

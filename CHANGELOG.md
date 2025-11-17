@@ -1,3 +1,11 @@
+# [1.0.0-alpha.5](https://github.com/chrisEff/invoicetify/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2025-11-17)
+
+
+### Bug Fixes
+
+* don't show service period in delivery notes ([3bf7460](https://github.com/chrisEff/invoicetify/commit/3bf7460711dcfc5a3b2c440fd55c019eb6b2b882))
+* fix faulty tax calculation ([2af4c47](https://github.com/chrisEff/invoicetify/commit/2af4c478cef05ec95238245f435657b13ff1cc1f))
+
 # [1.0.0-alpha.4](https://github.com/chrisEff/invoicetify/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2025-10-29)
 
 
