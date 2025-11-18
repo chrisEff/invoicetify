@@ -127,7 +127,7 @@ export const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 
 	const getSalutation = () => {
 		if (!recipient.salutation) {
-			return ''
+			return undefined
 		}
 		if (recipient.salutation === 'dearSirOrMadam') {
 			return i18n.salutations.dearSirOrMadam
@@ -136,6 +136,8 @@ export const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 	}
 
 	const salutation = getSalutation()
+
+	const isInvoice = details.documentType === 'invoice'
 
 	return (
 		<Document>
@@ -176,9 +178,9 @@ export const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 				</View>
 
 				<Text style={styles.subject}>
-					{details.documentType === 'invoice' ? i18n.invoice : i18n.deliveryNote} {details.invoiceNo}
+					{isInvoice ? i18n.invoice : i18n.deliveryNote} {details.invoiceNo}
 				</Text>
-				{details.documentType === 'invoice' && details.servicePeriodStart && (
+				{isInvoice && details.servicePeriodStart && (
 					<Text>
 						{i18n.details.servicePeriod}: {new Date(details.servicePeriodStart).toLocaleDateString(settings.language)}
 						{details.servicePeriodEnd && (
@@ -197,7 +199,7 @@ export const Pdf = ({ recipient, details, lineItems, settings }: PdfProps) => {
 					<>{settings.introductoryText}</>
 				</TextView>
 
-				<Table details={details} lineItems={lineItems} />
+				<Table lineItems={lineItems} showAmounts={isInvoice} />
 
 				<TextView emptyLinesBefore={2}>
 					<>{settings.closingText}</>

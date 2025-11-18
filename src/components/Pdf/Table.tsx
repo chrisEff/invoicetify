@@ -5,15 +5,15 @@ import { Text, View } from '@react-pdf/renderer'
 import { Style } from '@react-pdf/types/style'
 
 import { useTranslations } from '../../context/TranslationsContext'
-import type { Details, LineItem } from '../../types'
+import type { LineItem } from '../../types'
 import { getTaxAmount } from '../../util/tax'
 
 interface TableProps {
-	details: Details
 	lineItems: Array<LineItem>
+	showAmounts: boolean
 }
 
-export const Table = ({ details, lineItems }: TableProps) => {
+export const Table = ({ lineItems, showAmounts }: TableProps) => {
 	const { translations: i18n } = useTranslations()
 
 	const styles: { [key: string]: Style } = {
@@ -83,7 +83,7 @@ export const Table = ({ details, lineItems }: TableProps) => {
 				<View style={styles.quantity}>
 					<Text>{i18n.lineItems.quantity}</Text>
 				</View>
-				{details.documentType === 'invoice' && (
+				{showAmounts && (
 					<>
 						<View style={styles.unitPrice}>
 							<Text>{i18n.lineItems.unitPrice}</Text>
@@ -105,7 +105,7 @@ export const Table = ({ details, lineItems }: TableProps) => {
 					<View style={styles.quantity}>
 						<Text>{item.quantity}</Text>
 					</View>
-					{details.documentType === 'invoice' && (
+					{showAmounts && (
 						<>
 							<View style={styles.unitPrice}>
 								<Text>{item.unitPrice.toFixed(2)} €</Text>
@@ -117,7 +117,7 @@ export const Table = ({ details, lineItems }: TableProps) => {
 					)}
 				</View>
 			))}
-			{details.documentType === 'invoice' && (
+			{showAmounts && (
 				<>
 					<View style={styles.tableRow}>
 						<Text> </Text>
