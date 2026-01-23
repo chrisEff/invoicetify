@@ -12,6 +12,7 @@ export const getRandomDetails = (documentType = 'invoice' as DocumentType): Deta
 		documentType,
 		customerNo,
 		invoiceNo,
+		orderNo: '',
 		date: now.clone().format('YYYY-MM-DD'),
 		servicePeriodStart: now.clone().subtract(7, 'days').format('YYYY-MM-DD'),
 		servicePeriodEnd: now.clone().subtract(4, 'days').format('YYYY-MM-DD'),

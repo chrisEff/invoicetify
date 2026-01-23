@@ -1,17 +1,19 @@
 import React, { FormEvent, useRef, useState } from 'react'
 
-import { AddCircle, RemoveCircle } from '@mui/icons-material'
-import { Box, Fab, Table, TableBody, TableCell, TableHead, TableRow, TextField } from '@mui/material'
+import { AddCircle, AutoAwesome as AutoAwesomeIcon, RemoveCircle } from '@mui/icons-material'
+import { Box, Button, Fab, Table, TableBody, TableCell, TableHead, TableRow, TextField, Tooltip } from '@mui/material'
 
 import { useTranslations } from '../context/TranslationsContext'
+import { getRandomItems } from '../demoData/items'
 import type { LineItem } from '../types'
 
 interface LineItemsFormProps {
 	lineItems: Array<LineItem>
-	setLineItems: (cb: (existing: Array<LineItem>) => Array<LineItem>) => void
+	setLineItems: (cb: ((existing: Array<LineItem>) => Array<LineItem>) | Array<LineItem>) => void
+	devMode?: boolean
 }
 
-export const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFormProps) {
+export const LineItemsForm = function ({ lineItems, setLineItems, devMode }: LineItemsFormProps) {
 	const { translations: i18n } = useTranslations()
 
 	const [dataComplete, setDataComplete] = useState(false)
@@ -49,9 +51,22 @@ export const LineItemsForm = function ({ lineItems, setLineItems }: LineItemsFor
 		}
 	}
 
+	const fillDummyData = () => {
+		setLineItems(getRandomItems())
+	}
+
 	return (
 		<>
-			<Box sx={{ display: 'flex', flexDirection: 'column' }}>
+			<Box sx={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
+				<Box sx={{ position: 'absolute', top: '0px', right: '0px' }}>
+					{devMode && (
+						<Tooltip title="Auto-fill with dummy data">
+							<Button onClick={fillDummyData}>
+								<AutoAwesomeIcon />
+							</Button>
+						</Tooltip>
+					)}
+				</Box>
 				<form
 					onSubmit={(e: FormEvent<HTMLFormElement>) => {
 						e.preventDefault()

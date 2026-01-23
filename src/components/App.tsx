@@ -160,12 +160,12 @@ export const App = () => {
 					{(() => {
 						switch (tab) {
 							case 'details':
-								return <DetailsForm {...{ details, setDetails }} />
+								return <DetailsForm {...{ details, setDetails, devMode }} />
 							case 'lineItems':
-								return <LineItemsForm {...{ lineItems, setLineItems }} />
+								return <LineItemsForm {...{ lineItems, setLineItems, devMode }} />
 							case 'recipient':
 							default:
-								return <RecipientForm {...{ recipient, setRecipient }} />
+								return <RecipientForm {...{ recipient, setRecipient, devMode }} />
 						}
 					})()}
 				</Paper>

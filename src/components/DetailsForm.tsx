@@ -1,16 +1,29 @@
 import React, { ChangeEvent } from 'react'
 
-import { Box, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '@mui/material'
+import { AutoAwesome as AutoAwesomeIcon } from '@mui/icons-material'
+import {
+	Box,
+	Button,
+	FormControl,
+	FormControlLabel,
+	FormLabel,
+	Radio,
+	RadioGroup,
+	TextField,
+	Tooltip,
+} from '@mui/material'
 
 import { useTranslations } from '../context/TranslationsContext'
+import { getRandomDetails } from '../demoData/details'
 import type { Details, DocumentType } from '../types'
 
 interface DetailsFormProps {
 	details: Details
-	setDetails: (cb: (existing: Details) => Details) => void
+	setDetails: (cb: ((existing: Details) => Details) | Details) => void
+	devMode?: boolean
 }
 
-export const DetailsForm = function ({ details, setDetails }: DetailsFormProps) {
+export const DetailsForm = function ({ details, setDetails, devMode }: DetailsFormProps) {
 	const { translations: i18n } = useTranslations()
 
 	const updateDocumentType = (e: ChangeEvent<HTMLInputElement>) =>
@@ -34,51 +47,66 @@ export const DetailsForm = function ({ details, setDetails }: DetailsFormProps) 
 	const updateServicePeriodEnd = (e: ChangeEvent<HTMLInputElement>) =>
 		setDetails((existing: Details) => ({ ...existing, servicePeriodEnd: e.target.value }))
 
+	const fillDummyData = () => {
+		setDetails(getRandomDetails(details.documentType))
+	}
+
 	return (
-		<Box sx={{ display: 'flex', flexDirection: 'column', width: '500px', maxWidth: '50%' }}>
-			<FormControl margin="dense">
-				<FormLabel>{i18n.details.documentType}</FormLabel>
-				<RadioGroup value={details.documentType} onChange={updateDocumentType}>
-					<FormControlLabel value="invoice" control={<Radio />} label={i18n.invoice} />
-					<FormControlLabel value="deliveryNote" control={<Radio />} label={i18n.deliveryNote} />
-				</RadioGroup>
-			</FormControl>
-			<TextField
-				label={i18n.details.customerNo}
-				value={details.customerNo}
-				onChange={updateCustomerNo}
-				margin="dense"
-			/>
-			<TextField label={i18n.details.invoiceNo} value={details.invoiceNo} onChange={updateInvoiceNo} margin="dense" />
-			<TextField label={i18n.details.orderNo} value={details.orderNo} onChange={updateOrdereNo} margin="dense" />
-			<FormControl sx={{ filled: '1' }} margin="dense">
+		<Box sx={{ position: 'relative' }}>
+			<Box sx={{ position: 'absolute', top: '0px', right: '0px' }}>
+				{devMode && (
+					<Tooltip title="Auto-fill with dummy data">
+						<Button onClick={fillDummyData}>
+							<AutoAwesomeIcon />
+						</Button>
+					</Tooltip>
+				)}
+			</Box>
+			<Box sx={{ display: 'flex', flexDirection: 'column', width: '500px', maxWidth: '50%' }}>
+				<FormControl margin="dense">
+					<FormLabel>{i18n.details.documentType}</FormLabel>
+					<RadioGroup value={details.documentType} onChange={updateDocumentType}>
+						<FormControlLabel value="invoice" control={<Radio />} label={i18n.invoice} />
+						<FormControlLabel value="deliveryNote" control={<Radio />} label={i18n.deliveryNote} />
+					</RadioGroup>
+				</FormControl>
 				<TextField
-					label={i18n.details.date}
-					value={details.date}
-					onChange={updateDate}
-					type={'date'}
-					slotProps={{ inputLabel: { shrink: true } }}
-				/>
-			</FormControl>
-			<Box sx={{ display: 'flex', flexDirection: 'row' }}>
-				<TextField
-					label={i18n.details.servicePeriodStart}
-					value={details.servicePeriodStart}
-					onChange={updateServicePeriodStart}
-					type={'date'}
-					slotProps={{ inputLabel: { shrink: true } }}
-					sx={{ flexGrow: 1 }}
+					label={i18n.details.customerNo}
+					value={details.customerNo}
+					onChange={updateCustomerNo}
 					margin="dense"
 				/>
-				<TextField
-					label={i18n.details.servicePeriodEnd}
-					value={details.servicePeriodEnd}
-					onChange={updateServicePeriodEnd}
-					type={'date'}
-					slotProps={{ inputLabel: { shrink: true } }}
-					sx={{ flexGrow: 1 }}
-					margin="dense"
-				/>
+				<TextField label={i18n.details.invoiceNo} value={details.invoiceNo} onChange={updateInvoiceNo} margin="dense" />
+				<TextField label={i18n.details.orderNo} value={details.orderNo} onChange={updateOrdereNo} margin="dense" />
+				<FormControl sx={{ filled: '1' }} margin="dense">
+					<TextField
+						label={i18n.details.date}
+						value={details.date}
+						onChange={updateDate}
+						type={'date'}
+						slotProps={{ inputLabel: { shrink: true } }}
+					/>
+				</FormControl>
+				<Box sx={{ display: 'flex', flexDirection: 'row' }}>
+					<TextField
+						label={i18n.details.servicePeriodStart}
+						value={details.servicePeriodStart}
+						onChange={updateServicePeriodStart}
+						type={'date'}
+						slotProps={{ inputLabel: { shrink: true } }}
+						sx={{ flexGrow: 1 }}
+						margin="dense"
+					/>
+					<TextField
+						label={i18n.details.servicePeriodEnd}
+						value={details.servicePeriodEnd}
+						onChange={updateServicePeriodEnd}
+						type={'date'}
+						slotProps={{ inputLabel: { shrink: true } }}
+						sx={{ flexGrow: 1 }}
+						margin="dense"
+					/>
+				</Box>
 			</Box>
 		</Box>
 	)
