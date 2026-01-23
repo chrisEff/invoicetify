@@ -1,3 +1,10 @@
+# [1.0.0-alpha.6](https://github.com/chrisEff/invoicetify/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2026-01-23)
+
+
+### Features
+
+* add separate autofill buttons for each tab ([94c2787](https://github.com/chrisEff/invoicetify/commit/94c2787221d86184f234248d9b86ef6fcc572a18))
+
 # [1.0.0-alpha.5](https://github.com/chrisEff/invoicetify/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2025-11-17)
 
 
